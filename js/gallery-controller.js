@@ -26,7 +26,7 @@ function addImageEventListeners(imgs) {
             renderPage('meme-editor')
         })
         img.addEventListener('click', function () {
-            renderMeme(imgs[idx])
+            renderMeme(imgs[idx].url)
         })
     })
 }
@@ -35,10 +35,14 @@ function addImageEventListeners(imgs) {
 function renderPage(elPage) {
     const pageValue = elPage.toLowerCase()
     const pageToRender = document.querySelector(`.${pageValue}`)
-    console.log(pageToRender)
+    console.dir(pageToRender.className)
     const allPages = document.querySelectorAll('.page')
     for (var i = 0; i < allPages.length; i++) {
         allPages[i].style.display = 'none'
     }
     pageToRender.style.display = 'block'
+
+    // if (pageToRender.className.includes('meme')) {
+    //     editInit()
+    // }
 }

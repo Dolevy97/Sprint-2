@@ -23,6 +23,10 @@ function getImgs() {
     return gImgs
 }
 
+function getMeme() {
+    return gMeme
+}
+
 function createImgs() {
     gImgs = []
     for (var i = 0; i < 18; i++) {

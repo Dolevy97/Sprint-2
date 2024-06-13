@@ -1,11 +1,12 @@
 'use strict'
 
-const elCanvas = document.querySelector('canvas')
+const gElCanvas = document.querySelector('canvas')
+const gCtx = gElCanvas.getContext("2d");
 
-function editInit() {
-    console.log('test')
-}
 
 function renderMeme(imgUrl) {
-    console.log(imgUrl)
+    var elImg = new Image;
+    elImg.src = imgUrl
+    gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
+    
 }
