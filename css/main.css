@@ -132,8 +132,6 @@ body {
     margin-block:10px;
 }
 
-
-
 .meme-img {
     object-fit: cover;
     height: 120px;
@@ -153,9 +151,28 @@ body {
     background-color: var(--secondary-header-color);
 }
 
+/* Meme-Edit */
+
+
+.canvas-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    min-height: 55vh;
+    width:60vw;
+
+    padding: 20px;
+    background-color: var(--secondary-header-color);
+}
+
 /* FOOTER */
 
 footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
