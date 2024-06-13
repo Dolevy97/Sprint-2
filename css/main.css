@@ -194,6 +194,11 @@ body {
     margin-inline: 20px;
 }
 
+input[type='color'] {
+    width:30px;
+    border-radius:8px;
+}
+
 /* FOOTER */
 
 footer {

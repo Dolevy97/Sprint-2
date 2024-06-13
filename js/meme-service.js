@@ -35,6 +35,12 @@ function setLineTxt(txt) {
     gMeme.lines[gMeme.selectedLineIdx].txt = txt
 }
 
+function changeColor(val, currLine) {
+    gMeme.lines[currLine].color = val
+}
+
+// FACTORY
+
 function createImgs() {
     gImgs = []
     for (var i = 0; i < 18; i++) {
