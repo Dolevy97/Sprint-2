@@ -25,17 +25,22 @@ function drawImage() {
 }
 
 function onUpdateText(val) {
-    const meme = getMeme()
     setLineTxt(val)
     drawLines()
 }
 
 function drawLines() {
     const meme = getMeme()
-    const currLine = meme.lines[meme.selectedLineIdx]
+    var currLine = meme.lines[meme.selectedLineIdx]
     drawImage()
-    gCtx.font = `${currLine.size}px serif`;
+    gCtx.font = `${currLine.size}px Arial`;
     gCtx.fillStyle = currLine.color
+    if (gCtx.measureText(currLine.txt).width > gElCanvas.width - 60) {
+        alert('Please make a new line!')
+        setLineTxt(currLine.txt.substring(0, currLine.txt.length - 1))
+        document.querySelector('.line-text').value = currLine.txt
+        currLine = meme.lines[meme.selectedLineIdx]
+    }
     gCtx.fillText(currLine.txt, (gElCanvas.width / 2 - (gCtx.measureText(currLine.txt).width / 2)), 50 + (meme.selectedLineIdx * (gElCanvas.height - 100)))
     gCtx.strokeText(currLine.txt, (gElCanvas.width / 2 - (gCtx.measureText(currLine.txt).width / 2)), 50 + (meme.selectedLineIdx * (gElCanvas.height - 100)))
 }
