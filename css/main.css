@@ -159,7 +159,6 @@ body {
 }
 
 .canvas-container {
-
     position: absolute;
     top: 50%;
     left: 0;
@@ -170,12 +169,29 @@ body {
     align-items: center;
 
     min-height: 40vh;
-    width: 60vw;
 
     padding: 20px;
+}
+
+.meme-edit-container {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    translate: 0 -50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 40vh;
+
+    min-width: 40vw;
+    max-width: 50vw;
+
     background-color: var(--secondary-header-color);
 
-    border-radius: 10px;
+    border-radius: 20px;
+    margin-inline: 20px;
 }
 
 /* FOOTER */
