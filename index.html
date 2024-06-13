@@ -45,14 +45,17 @@
             <canvas width="250" height="250"></canvas>
         </div>
         <div class="meme-edit-container">
-            <input class="line-text" type="text" placeholder="Enter your text here" oninput="onUpdateText(this.value)">
+            <div class="text-container">
+                <input class="line-text" type="text" placeholder="Enter your text here"
+                    oninput="onUpdateText(this.value)">
+                <button class="btn btn-font-size" onclick="onChangeFontSize(1)">+</button>
+                <button class="btn btn-font-size" onclick="onChangeFontSize(-1)">-</button>
+            </div>
 
-            <button class="btn btn-font-size" onclick="onChangeFontSize(1)">+</button>
-            <button class="btn btn-font-size" onclick="onChangeFontSize(-1)">-</button>
             <input type="color" onchange="onChangeColor(value)">
+            <button class="btn add-line" onclick="onAddNewLine()">New Line</button>
             <a href="" onclick="onDownloadImg(this)" download="my-img.jpg"><button type="button"
                     class="btn btn-download">Download</button></a>
-
         </div>
     </section>
 

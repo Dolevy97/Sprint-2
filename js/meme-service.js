@@ -12,6 +12,10 @@ var gMeme = {
             txt: 'I sometimes eat Falafel',
             size: 40,
             color: 'white'
+        }, {
+            txt: 'with no fries',
+            size: 40,
+            color: 'white'
         }
     ]
 }
@@ -43,6 +47,13 @@ function changeColor(val, currLine) {
 
 function changeFontSize(num) {
     gMeme.lines[gMeme.selectedLineIdx].size += num
+}
+
+function addNewLine() {
+    var sameSize = gMeme.lines[0].size
+    var sameColor = gMeme.lines[0].color
+    var newLine = { txt: 'Sample Text', size: sameSize, color: sameColor }
+    gMeme.lines.push(newLine)
 }
 
 // FACTORY

@@ -47,14 +47,20 @@ function drawLines() {
         document.querySelector('.line-text').value = currLine.txt
         currLine = meme.lines[meme.selectedLineIdx]
     }
-    gCtx.fillText(currLine.txt, (gElCanvas.width / 2 - (gCtx.measureText(currLine.txt).width / 2)), 50 + (meme.selectedLineIdx * (gElCanvas.height - 100)))
-    gCtx.strokeText(currLine.txt, (gElCanvas.width / 2 - (gCtx.measureText(currLine.txt).width / 2)), 50 + (meme.selectedLineIdx * (gElCanvas.height - 100)))
+    const lines = meme.lines
+    lines.forEach((line, idx, lines) => {
+        if (lines.length > 2) {
+            gCtx.fillText(line.txt, (gElCanvas.width / 2 - (gCtx.measureText(line.txt).width / 2)), 50 + (idx * (gElCanvas.height - 450)))
+            gCtx.strokeText(line.txt, (gElCanvas.width / 2 - (gCtx.measureText(line.txt).width / 2)), 50 + (idx * (gElCanvas.height - 450)))
+        } else {
+            gCtx.fillText(line.txt, (gElCanvas.width / 2 - (gCtx.measureText(line.txt).width / 2)), 50 + (idx * (gElCanvas.height - 100)))
+            gCtx.strokeText(line.txt, (gElCanvas.width / 2 - (gCtx.measureText(line.txt).width / 2)), 50 + (idx * (gElCanvas.height - 100)))
+        }
+    })
 }
 
-function onDownloadImg(elLink) {
-    const imgContent = gElCanvas.toDataURL('image/jpeg')
-    elLink.href = imgContent
-}
+
+// Meme Editing Toolbar
 
 function onChangeColor(val) {
     const meme = getMeme()
@@ -70,4 +76,16 @@ function onChangeFontSize(num) {
 function renderImgWithText() {
     gCtx.drawImage(gElCurrMemeImg, 0, 0)
     drawLines()
+}
+
+function onAddNewLine() {
+    addNewLine()
+    renderImgWithText()
+}
+
+// Download / Upload / Share
+
+function onDownloadImg(elLink) {
+    const imgContent = gElCanvas.toDataURL('image/jpeg')
+    elLink.href = imgContent
 }
