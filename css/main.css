@@ -6,8 +6,9 @@
 
 body {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
     cursor: default;
+    width:100%;
 
     background-color: var(--primary-color);
     color: var(--text-color);
@@ -86,7 +87,7 @@ body {
 .search-input {
     position: relative;
 
-    width: 180px;
+    width: 200px;
     height: 1.5em;
     margin: 10px;
 
@@ -94,6 +95,7 @@ body {
     border: none;
 
     color: var(--text-color);
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 }
 
 .search-input:focus-visible {
@@ -114,13 +116,36 @@ body {
 .input-search-icon {
     position: absolute;
     width: 20px;
-    left: 170px;
+    left: 190px;
 }
 
 .images-container {
-    height: 55vh;
-    max-height: 950px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    min-height: 55vh;
+
+    margin-inline:10px;
+    margin-block:10px;
 }
+
+
+
+.meme-img {
+    object-fit: cover;
+    height: 120px;
+
+    border-radius: 10px;
+}
+
+.meme-img:hover {
+    scale: 1.05;
+    cursor: pointer;
+}
+
 
 .gallery-footer {
     height: 20vh;
