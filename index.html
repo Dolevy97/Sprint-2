@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="css/vars.css">
 </head>
 
-<body>
+<body class="main-layout">
 
-    <header class="main-header">
+    <header class="main-layout">
         <nav class="main-nav">
             <div class="main-logo">memegen</div>
 
@@ -23,12 +23,30 @@
     </header>
 
     <section class="meme-gallery">
+        <section class="gallery-header">
+            <input class="search-input" type="text" placeholder="Enter search keyword(s)">
+            <img class="input-search-icon" src="img/search.png" alt="magnifying-glass">
+            <div class="frequent-keywords">
+                <p>funny</p>
+                <p>israeli</p>
+                <p>girl</p>
+                <p>cat</p>
+                <p class="more-keywords">more..</p>
+            </div>
+        </section>
 
+        <section class="images-container"></section>
+        <section class="gallery-footer"></section>
     </section>
 
     <section class="meme-editor">
 
     </section>
+
+    <footer>
+        <div class="logo">memegen</div>
+        <p>Dolev Levy - 2024</p>
+    </footer>
 </body>
 
 <script src="js/main.js"></script>
