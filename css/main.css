@@ -195,10 +195,17 @@ body {
 }
 
 input[type='color'] {
-    width:30px;
+    width:27px;
     border-radius:8px;
+
+    margin: 5px;
+
+    box-shadow: 1px 1px 3px black;
 }
 
+.btn-font-size {
+    width:25px;
+}
 /* FOOTER */
 
 footer {
@@ -233,7 +240,8 @@ footer p {
 .btn {
     padding: 5px;
     margin: 5px;
-    
+
     border:0;
     border-radius:10px;
+    box-shadow: 1px 1px 3px black;
 }

@@ -1,7 +1,6 @@
 'use strict'
 
 var gNextId = 1
-
 var gImgs
 createImgs()
 
@@ -18,6 +17,7 @@ var gMeme = {
 }
 var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
 
+// Get for controller
 
 function getImgs() {
     return gImgs
@@ -26,6 +26,8 @@ function getImgs() {
 function getMeme() {
     return gMeme
 }
+
+// Functions from controller
 
 function changeSelectedMeme(id) {
     gMeme.selectedImgId = id
@@ -37,6 +39,10 @@ function setLineTxt(txt) {
 
 function changeColor(val, currLine) {
     gMeme.lines[currLine].color = val
+}
+
+function changeFontSize(num) {
+    gMeme.lines[gMeme.selectedLineIdx].size += num
 }
 
 // FACTORY

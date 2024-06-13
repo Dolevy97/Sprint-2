@@ -18,8 +18,8 @@ function renderCanvas(imgUrl) {
             gElCanvas.height = elImg.height
         }
 
-        drawImage()
-        drawLines()
+        renderImgWithText()
+        document.querySelector('.line-text').focus()
     }
     elContainer.style.width = elImg.width + 50 + 'px'
     elContainer.style.height = elImg.height + 50 + 'px'
@@ -32,7 +32,7 @@ function drawImage() {
 
 function onUpdateText(val) {
     setLineTxt(val)
-    drawLines()
+    renderImgWithText()
 }
 
 function drawLines() {
@@ -59,6 +59,15 @@ function onDownloadImg(elLink) {
 function onChangeColor(val) {
     const meme = getMeme()
     changeColor(val, meme.selectedLineIdx)
+    renderImgWithText()
+}
+
+function onChangeFontSize(num) {
+    changeFontSize(num)
+    renderImgWithText()
+}
+
+function renderImgWithText() {
     gCtx.drawImage(gElCurrMemeImg, 0, 0)
     drawLines()
 }
