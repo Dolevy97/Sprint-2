@@ -8,7 +8,7 @@ body {
     margin: 0;
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
     cursor: default;
-    width:100%;
+    width: 100%;
 
     background-color: var(--primary-color);
     color: var(--text-color);
@@ -58,7 +58,7 @@ body {
     width: 50px;
 
     line-height: 1em;
-    
+
     transition: font-size .3s;
 }
 
@@ -128,8 +128,8 @@ body {
 
     min-height: 55vh;
 
-    margin-inline:10px;
-    margin-block:10px;
+    margin-inline: 10px;
+    margin-block: 10px;
 }
 
 .meme-img {
@@ -153,17 +153,29 @@ body {
 
 /* Meme-Edit */
 
+.meme-editor {
+    position: relative;
+    height: 80.5vh
+}
 
 .canvas-container {
+
+    position: absolute;
+    top: 50%;
+    left: 0;
+    translate: 0 -50%;
+
     display: flex;
     justify-content: center;
     align-items: center;
 
-    min-height: 55vh;
-    width:60vw;
+    min-height: 40vh;
+    width: 60vw;
 
     padding: 20px;
     background-color: var(--secondary-header-color);
+
+    border-radius: 10px;
 }
 
 /* FOOTER */
