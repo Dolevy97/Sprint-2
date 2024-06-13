@@ -11,11 +11,19 @@ var gMeme = {
         {
             txt: 'I sometimes eat Falafel',
             size: 40,
-            color: 'white'
+            color: 'white',
+            x: 0,
+            y: 0,
+            height: 0,
+            width: 0
         }, {
             txt: 'with no fries',
             size: 40,
-            color: 'white'
+            color: 'white',
+            x: 0,
+            y: 0,
+            height: 0,
+            width: 0
         }
     ]
 }
@@ -52,10 +60,30 @@ function changeFontSize(num) {
 function addNewLine() {
     var sameSize = gMeme.lines[0].size
     var sameColor = gMeme.lines[0].color
-    var newLine = { txt: 'Sample Text', size: sameSize, color: sameColor }
+    var newLine = {
+        txt: 'Sample Text',
+        size: sameSize,
+        color: sameColor,
+        x: 0,
+        y: 0,
+        height: 0,
+        width: 0
+    }
     gMeme.lines.push(newLine)
 }
 
+function switchLine() {
+    var lines = gMeme.lines
+    gMeme.selectedLineIdx += 1
+    if (gMeme.selectedLineIdx > lines.length - 1) gMeme.selectedLineIdx = 0
+}
+
+function updatePositionAndSize(idx, x, y, width, height) {
+    gMeme.lines[idx].x = x
+    gMeme.lines[idx].y = y
+    gMeme.lines[idx].width = width
+    gMeme.lines[idx].height = height
+}
 // FACTORY
 
 function createImgs() {

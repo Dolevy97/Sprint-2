@@ -20,6 +20,8 @@ function renderCanvas(imgUrl) {
 
         renderImgWithText()
         document.querySelector('.line-text').focus()
+
+        drawFrame()
     }
     elContainer.style.width = elImg.width + 50 + 'px'
     elContainer.style.height = elImg.height + 50 + 'px'
@@ -56,6 +58,7 @@ function drawLines() {
             gCtx.fillText(line.txt, (gElCanvas.width / 2 - (gCtx.measureText(line.txt).width / 2)), 50 + (idx * (gElCanvas.height - 100)))
             gCtx.strokeText(line.txt, (gElCanvas.width / 2 - (gCtx.measureText(line.txt).width / 2)), 50 + (idx * (gElCanvas.height - 100)))
         }
+        onUpdatePositionAndSize(idx)
     })
 }
 
@@ -81,6 +84,43 @@ function renderImgWithText() {
 function onAddNewLine() {
     addNewLine()
     renderImgWithText()
+}
+
+function onSwitchLine() {
+    var txt = document.querySelector('.line-text').value
+    switchLine(txt)
+    drawFrame()
+}
+
+function drawFrame() {
+    const meme = getMeme()
+    renderImgWithText()
+    var currLine = meme.lines[meme.selectedLineIdx]
+
+    gCtx.beginPath()
+    gCtx.lineWidth = 3
+    gCtx.strokeStyle = 'white'
+    gCtx.rect(currLine.x - 10, currLine.y - currLine.height - 10, currLine.width + 20, currLine.height + 20)
+    gCtx.stroke()
+    gCtx.closePath()
+
+    gCtx.strokeStyle = 'black'
+    gCtx.lineWidth = 1
+}
+
+function onUpdatePositionAndSize(idx) {
+    var meme = getMeme()
+    var currLine = meme.lines[idx]
+    var x = (gElCanvas.width / 2 - (gCtx.measureText(currLine.txt).width / 2))
+    var y = 50 + (idx * (gElCanvas.height - 450))
+    if (meme.lines.length > 2) {
+        y = 50 + (idx * (gElCanvas.height - 450))
+    } else {
+        y = 50 + (idx * (gElCanvas.height - 100))
+    }
+    var width = gCtx.measureText(meme.lines[idx].txt).width
+    var height = gCtx.measureText(meme.lines[idx].txt).actualBoundingBoxAscent + gCtx.measureText(meme.lines[idx].txt).actualBoundingBoxDescent
+    updatePositionAndSize(idx, x, y, width, height)
 }
 
 // Download / Upload / Share
