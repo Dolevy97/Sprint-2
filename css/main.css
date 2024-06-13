@@ -222,3 +222,13 @@ footer p {
     font-weight: 250;
     font-size: 1.188em;
 }
+
+/* MISC */
+
+.btn {
+    padding: 5px;
+    margin: 5px;
+    
+    border:0;
+    border-radius:10px;
+}

@@ -50,3 +50,8 @@ function drawLines() {
     gCtx.fillText(currLine.txt, (gElCanvas.width / 2 - (gCtx.measureText(currLine.txt).width / 2)), 50 + (meme.selectedLineIdx * (gElCanvas.height - 100)))
     gCtx.strokeText(currLine.txt, (gElCanvas.width / 2 - (gCtx.measureText(currLine.txt).width / 2)), 50 + (meme.selectedLineIdx * (gElCanvas.height - 100)))
 }
+
+function downloadImg(elLink, ev) {
+    const imgContent = gElCanvas.toDataURL('image/jpeg')
+    elLink.href = imgContent
+}
