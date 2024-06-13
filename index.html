@@ -16,13 +16,13 @@
             <div class="main-logo">memegen</div>
 
             <div class="nav-links">
-                <div class="nav-link">Gallery</div>
-                <div class="nav-link">About</div>
+                <div class="nav-link" onclick="renderPage(this.innerText)">Gallery</div>
+                <div class="nav-link" onclick="renderPage(this.innerText)">About</div>
             </div>
         </nav>
     </header>
 
-    <section class="meme-gallery">
+    <section class="meme-gallery gallery page">
         <section class="gallery-header">
             <input class="search-input" type="text" placeholder="Enter search keyword(s)">
             <img class="input-search-icon" src="img/search.png" alt="magnifying-glass">
@@ -41,9 +41,11 @@
         <section class="gallery-footer"></section>
     </section>
 
-    <section class="meme-editor">
+    <section class="meme-editor page">
 
     </section>
+
+    <section class="about page"></section>
 
     <footer>
         <div class="logo">memegen</div>
