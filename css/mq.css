@@ -1,0 +1,20 @@
+@media (max-width:950px) {
+    .canvas-container {
+        position: relative;
+        margin-inline: auto;
+        top: 30%;
+        min-height: 20vh;
+
+        padding: 20px;
+    }
+
+    .meme-edit-container {
+        position: relative;
+        top: 25%;
+        margin: auto;
+
+        min-height: 30vh;
+        width:85vw;
+        max-width: 90vw;
+    }
+}
