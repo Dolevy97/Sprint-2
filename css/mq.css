@@ -4,10 +4,6 @@
         display: grid;
     }
 
-    .header {
-        position: fixed;
-    }
-
     .main-nav {
         position: sticky;
     }
@@ -18,7 +14,6 @@
         width: 130px;
         height: 1.5em;
         margin: 10px;
-
     }
 
     .input-search-icon {
@@ -36,17 +31,18 @@
         margin-inline: auto;
         top: 28vh;
         min-height: 20vh;
-
+        height: 80px;
         padding: 20px;
     }
 
     .meme-edit-container {
-        position: relative;
-        top: 20vh;
-        margin: auto;
+        position: static;
+        transform: translateY(200%);
 
-        min-height: 40vh;
-        min-width: 100vw;
+        min-height: 20vh;
+        min-width: 90vw;
+        margin-inline: 50px;
+        padding-inline: 0;
     }
 
     footer {

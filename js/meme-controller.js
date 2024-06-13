@@ -10,8 +10,14 @@ function renderCanvas(imgUrl) {
     elImg.src = imgUrl
     elImg.onload = function () {
         gElCurrMemeImg = elImg
-        gElCanvas.width = elImg.width
-        gElCanvas.height = elImg.height
+        if (screen.width < 1000) {
+            gElCanvas.width = screen.width - 20
+            gElCanvas.height = 400
+        } else {
+            gElCanvas.width = elImg.width
+            gElCanvas.height = elImg.height
+        }
+
         drawImage()
         drawLines()
     }
