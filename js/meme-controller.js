@@ -23,8 +23,8 @@ function renderCanvas(imgUrl) {
         }
 
         renderImgWithText()
+        document.querySelector('.meme-edit-container').style.display = 'flex'
         document.querySelector('.line-text').focus()
-
         drawFrame()
         addListeners()
     }
@@ -44,17 +44,20 @@ function onUpdateText(val) {
 
 function drawLines() {
     var currLine = gLocalMeme.lines[gLocalMeme.selectedLineIdx]
-    drawImage()
-    gCtx.font = `${currLine.size}px Impact`;
-    gCtx.fillStyle = currLine.color
-    if (gCtx.measureText(currLine.txt).width > gElCanvas.width - 60) {
-        alert('Please make a new line!')
-        setLineTxt(currLine.txt.substring(0, currLine.txt.length - 1))
-        document.querySelector('.line-text').value = currLine.txt
-        currLine = gLocalMeme.lines[gLocalMeme.selectedLineIdx]
-    }
     const lines = gLocalMeme.lines
+
+    // Render the image
+    drawImage()
+
+    // Limit line length
+
+    // Set font and color
+
+    // gCtx.fillStyle = currLine.color
+
     lines.forEach((line, idx, lines) => {
+        gCtx.font = `${lines[idx].size}px Impact`;
+        gCtx.fillStyle = lines[idx].color
         if (lines.length > 2) {
             gCtx.fillText(line.txt, (gElCanvas.width / 2 - (gCtx.measureText(line.txt).width / 2)), 50 + (idx * (gElCanvas.height - 450)))
             gCtx.strokeText(line.txt, (gElCanvas.width / 2 - (gCtx.measureText(line.txt).width / 2)), 50 + (idx * (gElCanvas.height - 450)))
@@ -100,12 +103,13 @@ function drawFrame() {
     var currLine = gLocalMeme.lines[gLocalMeme.selectedLineIdx]
 
     gCtx.beginPath()
-    gCtx.lineWidth = 1
+    gCtx.lineWidth = 2
     gCtx.strokeStyle = 'white'
     gCtx.rect(currLine.x - 3, currLine.y - currLine.height - 3, currLine.width + 6, currLine.height + 6)
     gCtx.stroke()
     gCtx.closePath()
 
+    gCtx.lineWidth = 1
     gCtx.strokeStyle = 'black'
     gCtx.lineWidth = 1
 }
@@ -139,7 +143,7 @@ function onUp(ev) {
 function onClick(ev) {
     const pos = getEvPos(ev)
     const lines = gLocalMeme.lines
-    
+
     lines.forEach((currLine, idx) => {
         if (pos.x >= currLine.x &&
             pos.x <= currLine.x + currLine.width &&
