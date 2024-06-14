@@ -37,8 +37,9 @@ const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 const gLocalMeme = getMeme()
 
 var gCurrentFont = 'Impact'
-var gElCurrMemeImg
 var gTextAlign = 'center'
+var gElCurrMemeImg
+let gStartPos
 
 function renderFonts() {
     var strHTML = fonts.map(font =>
@@ -87,6 +88,7 @@ function drawImage() {
 
 function onUpdateText(val) {
     setLineTxt(val)
+    onUpdatePositionAndSize(gLocalMeme.selectedLineIdx)
     renderImgWithText()
 }
 
@@ -122,12 +124,12 @@ function onChangeFontSize(num) {
     changeFontSize(num)
     renderImgWithText()
     drawFrame()
+    onUpdatePositionAndSize(gLocalMeme.selectedLineIdx)
 }
 
 function renderImgWithText() {
     gCtx.drawImage(gElCurrMemeImg, 0, 0)
     drawLines()
-
 }
 
 function onAddNewLine() {
@@ -187,15 +189,39 @@ function onChangeTextAlign(value) {
 }
 
 function onDown(ev) {
+    const pos = getEvPos(ev)
+    const lines = gLocalMeme.lines
+    lines.forEach((currLine, idx) => {
+        if (pos.x >= currLine.x &&
+            pos.x <= currLine.x + currLine.width &&
+            pos.y >= currLine.y - currLine.height &&
+            pos.y <= currLine.y) {
+            switchLine(idx)
+            drawFrame()
+            gLocalMeme.isDragged = true
+            gStartPos = pos
+            document.body.style.cursor = 'grabbing'
+        }
+    })
 
 }
 
 function onMove(ev) {
+    if (!gLocalMeme.isDragged) return
 
+    const pos = getEvPos(ev)
+    const dx = pos.x - gStartPos.x
+    const dy = pos.y - gStartPos.y
+
+    moveText(dx, dy)
+    gStartPos = pos
+    renderImgWithText()
+    drawFrame()
 }
 
 function onUp(ev) {
-
+    gLocalMeme.isDragged = false
+    document.body.style.cursor = 'default'
 }
 
 function onClick(ev) {
@@ -262,7 +288,7 @@ function addMouseListeners() {
     gElCanvas.addEventListener('mousemove', onMove)
     gElCanvas.addEventListener('mouseup', onUp)
     gElCanvas.addEventListener('click', onClick)
-    gElCanvas.addEventListener('keydown', function () { onKeyDown(event) })
+    gElCanvas.addEventListener('keydown', onKeyDown)
 }
 
 function addTouchListeners() {

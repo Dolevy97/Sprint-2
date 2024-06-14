@@ -5,6 +5,7 @@ var gImgs
 createImgs()
 
 var gMeme = {
+    isDragged: false,
     selectedImgId: 1,
     selectedLineIdx: 0,
     lines: [
@@ -89,6 +90,15 @@ function updatePositionAndSize(idx, x, y, width, height) {
 function changeLinePosition(axis, num) {
     gMeme.lines[gMeme.selectedLineIdx][axis] += num
 }
+
+
+// Drag
+
+function moveText(dx, dy) {
+    gMeme.lines[gMeme.selectedLineIdx].x += dx
+    gMeme.lines[gMeme.selectedLineIdx].y += dy
+}
+
 
 // FACTORY
 
