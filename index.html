@@ -40,7 +40,7 @@
         <section class="gallery-footer"></section>
     </section>
 
-    <section class="meme-editor page">
+    <section class="meme-editor page" style="display:none;">
         <div class="canvas-container">
             <canvas width="250" height="250"></canvas>
         </div>
@@ -48,8 +48,8 @@
             <div class="text-container">
                 <input class="line-text" type="text" placeholder="Enter your text here"
                     oninput="onUpdateText(this.value)">
-                <button class="btn btn-font-size" onclick="onChangeFontSize(1)">+</button>
-                <button class="btn btn-font-size" onclick="onChangeFontSize(-1)">-</button>
+                <button class="btn btn-font-size" onclick="onChangeFontSize(1)">A+</button>
+                <button class="btn btn-font-size" onclick="onChangeFontSize(-1)">A-</button>
             </div>
 
             <input type="color" onchange="onChangeColor(value)">
@@ -60,7 +60,7 @@
         </div>
     </section>
 
-    <section class="about page"></section>
+    <section class="about page" style="display:none;"></section>
 
     <footer>
         <div class="logo">memegen</div>

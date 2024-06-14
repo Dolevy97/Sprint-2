@@ -72,7 +72,8 @@ function addNewLine() {
     gMeme.lines.push(newLine)
 }
 
-function switchLine() {
+function switchLine(idx) {
+    if (idx !== undefined) return gMeme.selectedLineIdx = idx
     var lines = gMeme.lines
     gMeme.selectedLineIdx += 1
     if (gMeme.selectedLineIdx > lines.length - 1) gMeme.selectedLineIdx = 0

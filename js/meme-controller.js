@@ -2,7 +2,11 @@
 
 const gElCanvas = document.querySelector('canvas')
 const gCtx = gElCanvas.getContext("2d");
+const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
+const gLocalMeme = getMeme()
+
 var gElCurrMemeImg
+
 
 function renderCanvas(imgUrl) {
     var elImg = new Image;
@@ -22,6 +26,7 @@ function renderCanvas(imgUrl) {
         document.querySelector('.line-text').focus()
 
         drawFrame()
+        addListeners()
     }
     elContainer.style.width = elImg.width + 50 + 'px'
     elContainer.style.height = elImg.height + 50 + 'px'
@@ -38,18 +43,17 @@ function onUpdateText(val) {
 }
 
 function drawLines() {
-    const meme = getMeme()
-    var currLine = meme.lines[meme.selectedLineIdx]
+    var currLine = gLocalMeme.lines[gLocalMeme.selectedLineIdx]
     drawImage()
-    gCtx.font = `${currLine.size}px Arial`;
+    gCtx.font = `${currLine.size}px Impact`;
     gCtx.fillStyle = currLine.color
     if (gCtx.measureText(currLine.txt).width > gElCanvas.width - 60) {
         alert('Please make a new line!')
         setLineTxt(currLine.txt.substring(0, currLine.txt.length - 1))
         document.querySelector('.line-text').value = currLine.txt
-        currLine = meme.lines[meme.selectedLineIdx]
+        currLine = gLocalMeme.lines[gLocalMeme.selectedLineIdx]
     }
-    const lines = meme.lines
+    const lines = gLocalMeme.lines
     lines.forEach((line, idx, lines) => {
         if (lines.length > 2) {
             gCtx.fillText(line.txt, (gElCanvas.width / 2 - (gCtx.measureText(line.txt).width / 2)), 50 + (idx * (gElCanvas.height - 450)))
@@ -66,8 +70,7 @@ function drawLines() {
 // Meme Editing Toolbar
 
 function onChangeColor(val) {
-    const meme = getMeme()
-    changeColor(val, meme.selectedLineIdx)
+    changeColor(val, gLocalMeme.selectedLineIdx)
     renderImgWithText()
 }
 
@@ -87,20 +90,19 @@ function onAddNewLine() {
 }
 
 function onSwitchLine() {
-    var txt = document.querySelector('.line-text').value
-    switchLine(txt)
+    switchLine()
     drawFrame()
 }
 
 function drawFrame() {
-    const meme = getMeme()
     renderImgWithText()
-    var currLine = meme.lines[meme.selectedLineIdx]
+
+    var currLine = gLocalMeme.lines[gLocalMeme.selectedLineIdx]
 
     gCtx.beginPath()
-    gCtx.lineWidth = 3
+    gCtx.lineWidth = 1
     gCtx.strokeStyle = 'white'
-    gCtx.rect(currLine.x - 10, currLine.y - currLine.height - 10, currLine.width + 20, currLine.height + 20)
+    gCtx.rect(currLine.x - 3, currLine.y - currLine.height - 3, currLine.width + 6, currLine.height + 6)
     gCtx.stroke()
     gCtx.closePath()
 
@@ -109,23 +111,89 @@ function drawFrame() {
 }
 
 function onUpdatePositionAndSize(idx) {
-    var meme = getMeme()
-    var currLine = meme.lines[idx]
+    var currLine = gLocalMeme.lines[idx]
     var x = (gElCanvas.width / 2 - (gCtx.measureText(currLine.txt).width / 2))
     var y = 50 + (idx * (gElCanvas.height - 450))
-    if (meme.lines.length > 2) {
+    if (gLocalMeme.lines.length > 2) {
         y = 50 + (idx * (gElCanvas.height - 450))
     } else {
         y = 50 + (idx * (gElCanvas.height - 100))
     }
-    var width = gCtx.measureText(meme.lines[idx].txt).width
-    var height = gCtx.measureText(meme.lines[idx].txt).actualBoundingBoxAscent + gCtx.measureText(meme.lines[idx].txt).actualBoundingBoxDescent
+    var width = gCtx.measureText(gLocalMeme.lines[idx].txt).width
+    var height = gCtx.measureText(gLocalMeme.lines[idx].txt).actualBoundingBoxAscent + gCtx.measureText(gLocalMeme.lines[idx].txt).actualBoundingBoxDescent
     updatePositionAndSize(idx, x, y, width, height)
 }
+
+function onDown(ev) {
+
+}
+
+function onMove(ev) {
+
+}
+
+function onUp(ev) {
+
+}
+
+function onClick(ev) {
+    const pos = getEvPos(ev)
+    const lines = gLocalMeme.lines
+    
+    lines.forEach((currLine, idx) => {
+        if (pos.x >= currLine.x &&
+            pos.x <= currLine.x + currLine.width &&
+            pos.y >= currLine.y - currLine.height &&
+            pos.y <= currLine.y) {
+            switchLine(idx)
+            drawFrame()
+        }
+    })
+
+
+}
+
 
 // Download / Upload / Share
 
 function onDownloadImg(elLink) {
     const imgContent = gElCanvas.toDataURL('image/jpeg')
     elLink.href = imgContent
+}
+
+
+// GetEvPos
+
+function getEvPos(ev) {
+    let pos = {
+        x: ev.offsetX,
+        y: ev.offsetY,
+    }
+    if (TOUCH_EVS.includes(ev.type)) {
+        ev.preventDefault()
+        ev = ev.changedTouches[0]
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
+        }
+    }
+    return pos
+}
+
+function addListeners() {
+    addMouseListeners()
+    addTouchListeners()
+}
+
+function addMouseListeners() {
+    gElCanvas.addEventListener('mousedown', onDown)
+    gElCanvas.addEventListener('mousemove', onMove)
+    gElCanvas.addEventListener('mouseup', onUp)
+    gElCanvas.addEventListener('click', onClick)
+}
+
+function addTouchListeners() {
+    gElCanvas.addEventListener('touchstart', onDown)
+    gElCanvas.addEventListener('touchmove', onMove)
+    gElCanvas.addEventListener('touchend', onUp)
 }
