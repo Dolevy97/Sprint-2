@@ -38,7 +38,7 @@ const gLocalMeme = getMeme()
 
 var gCurrentFont = 'Impact'
 var gElCurrMemeImg
-
+var gTextAlign = 'center'
 
 function renderFonts() {
     var strHTML = fonts.map(font =>
@@ -64,11 +64,20 @@ function renderCanvas(imgUrl) {
         renderImgWithText()
         document.querySelector('.meme-edit-container').style.display = 'flex'
         document.querySelector('.line-text').focus()
+
+        firstPositionSizeUpdate()
         drawFrame()
         addListeners()
     }
     elContainer.style.width = elImg.width + 50 + 'px'
     elContainer.style.height = elImg.height + 50 + 'px'
+}
+
+
+// Doing first one in order to be able to change locations and not have the y fixated
+function firstPositionSizeUpdate() {
+    const lines = gLocalMeme.lines
+    lines.forEach((line, idx) => onUpdatePositionAndSize(idx))
 }
 
 function drawImage() {
@@ -82,23 +91,21 @@ function onUpdateText(val) {
 }
 
 function drawLines() {
-    var currLine = gLocalMeme.lines[gLocalMeme.selectedLineIdx]
     const lines = gLocalMeme.lines
 
-    // Render the image
     drawImage()
 
     lines.forEach((line, idx, lines) => {
         gCtx.font = `${lines[idx].size}px ${gCurrentFont}`;
         gCtx.fillStyle = lines[idx].color
         if (lines.length > 2) {
-            gCtx.fillText(line.txt, (gElCanvas.width / 2 - (gCtx.measureText(line.txt).width / 2)), 50 + (idx * (gElCanvas.height - 450)))
-            gCtx.strokeText(line.txt, (gElCanvas.width / 2 - (gCtx.measureText(line.txt).width / 2)), 50 + (idx * (gElCanvas.height - 450)))
+            gCtx.fillText(line.txt, line.x, line.y)
+            gCtx.strokeText(line.txt, line.x, line.y)
         } else {
-            gCtx.fillText(line.txt, (gElCanvas.width / 2 - (gCtx.measureText(line.txt).width / 2)), 50 + (idx * (gElCanvas.height - 100)))
-            gCtx.strokeText(line.txt, (gElCanvas.width / 2 - (gCtx.measureText(line.txt).width / 2)), 50 + (idx * (gElCanvas.height - 100)))
+            gCtx.fillText(line.txt, line.x, line.y)
+            gCtx.strokeText(line.txt, line.x, line.y)
         }
-        onUpdatePositionAndSize(idx)
+
     })
 }
 
@@ -125,6 +132,7 @@ function renderImgWithText() {
 
 function onAddNewLine() {
     addNewLine()
+    onUpdatePositionAndSize(gLocalMeme.lines[gLocalMeme.lines.length - 1])
     renderImgWithText()
     drawFrame()
 }
@@ -155,7 +163,7 @@ function drawFrame() {
 function onUpdatePositionAndSize(idx) {
     var currLine = gLocalMeme.lines[idx]
     var x = (gElCanvas.width / 2 - (gCtx.measureText(currLine.txt).width / 2))
-    var y = 50 + (idx * (gElCanvas.height - 450))
+    var y
     if (gLocalMeme.lines.length > 2) {
         y = 50 + (idx * (gElCanvas.height - 450))
     } else {
@@ -168,6 +176,12 @@ function onUpdatePositionAndSize(idx) {
 
 function onChangeFontFamily(value) {
     gCurrentFont = value
+    renderImgWithText()
+    drawFrame()
+}
+
+function onChangeTextAlign(value) {
+    gTextAlign = value
     renderImgWithText()
     drawFrame()
 }
@@ -197,11 +211,21 @@ function onClick(ev) {
             drawFrame()
         }
     })
-
-
 }
 
-
+function onKeyDown(ev) {
+    if (ev.code === 'ArrowDown') {
+        changeLinePosition('y', 1)
+    } else if (ev.code === 'ArrowUp') {
+        changeLinePosition('y', -1)
+    } else if (ev.code === 'ArrowRight') {
+        changeLinePosition('x', 1)
+    } else if (ev.code === 'ArrowLeft') {
+        changeLinePosition('x', -1)
+    }
+    renderImgWithText()
+    drawFrame()
+}
 // Download / Upload / Share
 
 function onDownloadImg(elLink) {
@@ -238,6 +262,7 @@ function addMouseListeners() {
     gElCanvas.addEventListener('mousemove', onMove)
     gElCanvas.addEventListener('mouseup', onUp)
     gElCanvas.addEventListener('click', onClick)
+    gElCanvas.addEventListener('keydown', function () { onKeyDown(event) })
 }
 
 function addTouchListeners() {

@@ -137,10 +137,12 @@ body {
     height: 120px;
 
     border-radius: 10px;
+
+    transition: .2s;
 }
 
 .meme-img:hover {
-    scale: 1.05;
+    scale: 1.1;
     cursor: pointer;
 }
 
@@ -173,6 +175,10 @@ body {
     padding: 20px;
 }
 
+canvas:focus {
+    outline: none;
+}
+
 .meme-edit-container {
     position: absolute;
     top: 50%;
@@ -193,6 +199,13 @@ body {
 
     border-radius: 20px;
     margin-inline: 20px;
+}
+
+.line-text {
+    height: 2em;
+    margin-block-end: 5px;
+
+    border-radius: 5px;
 }
 
 input[type='color'] {

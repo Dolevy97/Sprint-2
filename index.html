@@ -42,17 +42,21 @@
 
     <section class="meme-editor page" style="display:none">
         <div class="canvas-container">
-            <canvas width="250" height="250"></canvas>
+            <canvas width="250" height="250" tabindex='1'></canvas>
         </div>
         <div class="meme-edit-container" style="display:none">
             <div class="text-container">
                 <input class="line-text" type="text" placeholder="Enter your text here"
                     oninput="onUpdateText(this.value)">
+            </div>
+            <div class="text-alignment-and-size">
                 <button class="btn btn-font-size" onclick="onChangeFontSize(1)">A+</button>
                 <button class="btn btn-font-size" onclick="onChangeFontSize(-1)">A-</button>
+                <button class="btn btn-text-align" onclick="onChangeTextAlign('left')" style="display:none">left</button>
+                <button class="btn btn-text-align" onclick="onChangeTextAlign('center')" style="display:none">center</button>
+                <button class="btn btn-text-align" onclick="onChangeTextAlign('right')" style="display:none">right</button>
             </div>
-
-            <div class="color-text-align-container">
+            <div class="color-font">
                 <input type="color" onchange="onChangeColor(value)" value="#ffffff">
                 <select class="font-family-select" onchange="onChangeFontFamily(value)">
                 </select>

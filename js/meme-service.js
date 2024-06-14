@@ -85,6 +85,11 @@ function updatePositionAndSize(idx, x, y, width, height) {
     gMeme.lines[idx].width = width
     gMeme.lines[idx].height = height
 }
+
+function changeLinePosition(axis, num) {
+    gMeme.lines[gMeme.selectedLineIdx][axis] += num
+}
+
 // FACTORY
 
 function createImgs() {
