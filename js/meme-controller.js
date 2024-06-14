@@ -98,16 +98,19 @@ function drawLines() {
     drawImage()
 
     lines.forEach((line, idx, lines) => {
-        // gCtx.textAlign = gTextAlign
+        gCtx.textAlign = gTextAlign
         gCtx.font = `${lines[idx].size}px ${gCurrentFont}`;
         gCtx.fillStyle = lines[idx].color
-        if (lines.length > 2) {
-            gCtx.fillText(line.txt, line.x, line.y)
-            gCtx.strokeText(line.txt, line.x, line.y)
-        } else {
-            gCtx.fillText(line.txt, line.x, line.y)
-            gCtx.strokeText(line.txt, line.x, line.y)
-        }
+
+        // Add this if and change the y settings to adapt for more lines
+        
+        // if (lines.length > 2) {
+        //     gCtx.fillText(line.txt, line.x + gElCanvas.width / 2, line.y)
+        //     gCtx.strokeText(line.txt, line.x + gElCanvas.width / 2, line.y)
+        // } else {
+            gCtx.fillText(line.txt, line.x + (gCtx.measureText(line.txt).width / 2), line.y)
+            gCtx.strokeText(line.txt, line.x + (gCtx.measureText(line.txt).width / 2), line.y)
+        // }
 
     })
 }
@@ -197,6 +200,14 @@ function onChangeFontFamily(value) {
 }
 
 function onChangeTextAlign(value) {
+    if (gMeme.selectedLineIdx === -1) return
+    // if (value === 'left') {
+    //     gMeme.lines[gMeme.selectedLineIdx].x = gElCanvas.width * 0.2
+    // } else if (value === 'center') {
+    //     gMeme.lines[gMeme.selectedLineIdx].x = gElCanvas.width * 0.3
+    // } else {
+    //     gMeme.lines[gMeme.selectedLineIdx].x = gElCanvas.width * 0.76
+    // }
     gTextAlign = value
     renderImgWithText()
     drawFrame()
