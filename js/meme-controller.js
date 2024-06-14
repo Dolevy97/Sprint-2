@@ -1,12 +1,51 @@
 'use strict'
 
+const fonts = [
+    "Impact",
+    "Arial",
+    "Arial Narrow",
+    "Arial Rounded MT Bold",
+    "Bookman Old Style",
+    "Bradley Hand ITC",
+    "Century",
+    "Century Gothic",
+    "Comic Sans MS",
+    "Georgia",
+    "Gentium",
+    "King",
+    "Lucida Console",
+    "Lalit",
+    "Modena",
+    "Monotype Corsiva",
+    "Papyrus",
+    "Tahoma",
+    "Times New Roman",
+    "Trebuchet MS",
+    "Verdana",
+    "Verona",
+    "cursive",
+    "monospace",
+    "serif",
+    "sans-serif",
+    "fantasy",
+    "default"
+];
+
 const gElCanvas = document.querySelector('canvas')
 const gCtx = gElCanvas.getContext("2d");
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 const gLocalMeme = getMeme()
 
+var gCurrentFont = 'Impact'
 var gElCurrMemeImg
 
+
+function renderFonts() {
+    var strHTML = fonts.map(font =>
+        `<option>${font}</option>`
+    )
+    document.querySelector('.font-family-select').innerHTML = strHTML.join('')
+}
 
 function renderCanvas(imgUrl) {
     var elImg = new Image;
@@ -49,14 +88,8 @@ function drawLines() {
     // Render the image
     drawImage()
 
-    // Limit line length
-
-    // Set font and color
-
-    // gCtx.fillStyle = currLine.color
-
     lines.forEach((line, idx, lines) => {
-        gCtx.font = `${lines[idx].size}px Impact`;
+        gCtx.font = `${lines[idx].size}px ${gCurrentFont}`;
         gCtx.fillStyle = lines[idx].color
         if (lines.length > 2) {
             gCtx.fillText(line.txt, (gElCanvas.width / 2 - (gCtx.measureText(line.txt).width / 2)), 50 + (idx * (gElCanvas.height - 450)))
@@ -75,27 +108,32 @@ function drawLines() {
 function onChangeColor(val) {
     changeColor(val, gLocalMeme.selectedLineIdx)
     renderImgWithText()
+    drawFrame()
 }
 
 function onChangeFontSize(num) {
     changeFontSize(num)
     renderImgWithText()
+    drawFrame()
 }
 
 function renderImgWithText() {
     gCtx.drawImage(gElCurrMemeImg, 0, 0)
     drawLines()
+
 }
 
 function onAddNewLine() {
     addNewLine()
     renderImgWithText()
+    drawFrame()
 }
 
 function onSwitchLine() {
     switchLine()
     drawFrame()
 }
+
 
 function drawFrame() {
     renderImgWithText()
@@ -126,6 +164,12 @@ function onUpdatePositionAndSize(idx) {
     var width = gCtx.measureText(gLocalMeme.lines[idx].txt).width
     var height = gCtx.measureText(gLocalMeme.lines[idx].txt).actualBoundingBoxAscent + gCtx.measureText(gLocalMeme.lines[idx].txt).actualBoundingBoxDescent
     updatePositionAndSize(idx, x, y, width, height)
+}
+
+function onChangeFontFamily(value) {
+    gCurrentFont = value
+    renderImgWithText()
+    drawFrame()
 }
 
 function onDown(ev) {

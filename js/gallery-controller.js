@@ -2,6 +2,7 @@
 
 function onInit() {
     renderGallery()
+    renderFonts()
 }
 
 function renderGallery() {
@@ -9,9 +10,6 @@ function renderGallery() {
     var strHTML = imgs.map(img =>
         `<img class='meme-img' src='${img.url}'></img>`
     )
-
-
-
     const elGallery = document.querySelector('.images-container')
     elGallery.innerHTML = strHTML.join('')
 
