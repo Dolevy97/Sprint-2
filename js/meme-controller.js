@@ -74,7 +74,6 @@ function renderCanvas(imgUrl) {
     elContainer.style.height = elImg.height + 50 + 'px'
 }
 
-
 // Doing first one in order to be able to change locations and not have the y fixated
 function firstPositionSizeUpdate() {
     const lines = gLocalMeme.lines
@@ -98,23 +97,20 @@ function drawLines() {
     drawImage()
 
     lines.forEach((line, idx, lines) => {
-        gCtx.textAlign = gTextAlign
         gCtx.font = `${lines[idx].size}px ${gCurrentFont}`;
         gCtx.fillStyle = lines[idx].color
-
         // Add this if and change the y settings to adapt for more lines
-        
+
         // if (lines.length > 2) {
         //     gCtx.fillText(line.txt, line.x + gElCanvas.width / 2, line.y)
         //     gCtx.strokeText(line.txt, line.x + gElCanvas.width / 2, line.y)
         // } else {
-            gCtx.fillText(line.txt, line.x + (gCtx.measureText(line.txt).width / 2), line.y)
-            gCtx.strokeText(line.txt, line.x + (gCtx.measureText(line.txt).width / 2), line.y)
+        gCtx.fillText(line.txt, line.x, line.y)
+        gCtx.strokeText(line.txt, line.x, line.y)
         // }
 
     })
 }
-
 
 // Meme Editing Toolbar
 
@@ -147,7 +143,6 @@ function onSwitchLine() {
     switchLine()
     drawFrame()
 }
-
 
 function drawFrame() {
     renderImgWithText()
@@ -191,8 +186,6 @@ function onUpdatePositionAndSize(idx) {
     updatePositionAndSize(idx, x, y, width, height)
 }
 
-
-
 function onChangeFontFamily(value) {
     gCurrentFont = value
     renderImgWithText()
@@ -201,14 +194,19 @@ function onChangeFontFamily(value) {
 
 function onChangeTextAlign(value) {
     if (gMeme.selectedLineIdx === -1) return
-    // if (value === 'left') {
-    //     gMeme.lines[gMeme.selectedLineIdx].x = gElCanvas.width * 0.2
-    // } else if (value === 'center') {
-    //     gMeme.lines[gMeme.selectedLineIdx].x = gElCanvas.width * 0.3
-    // } else {
-    //     gMeme.lines[gMeme.selectedLineIdx].x = gElCanvas.width * 0.76
-    // }
-    gTextAlign = value
+    const lines = gLocalMeme.lines
+    lines.forEach((line, idx) => {
+        if (value === 'left') {
+            line.x = 0
+        } else if (value === 'center') {
+            line.x = (gElCanvas.width / 2 - (gCtx.measureText(line.txt).width / 2))
+        } else {
+            line.x = gElCanvas.width - gCtx.measureText(line.txt).width
+        }
+        changeLineX(idx, line.x)
+        gTextAlign = value
+    })
+
     renderImgWithText()
     drawFrame()
 }

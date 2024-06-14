@@ -94,6 +94,9 @@ function deleteLine() {
     gMeme.selectedLineIdx = 0
 }
 
+function changeLineX(idx, x) {
+    gMeme.lines[idx].x = x
+}
 
 // Drag
 
