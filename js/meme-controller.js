@@ -134,7 +134,7 @@ function renderImgWithText() {
 
 function onAddNewLine() {
     addNewLine()
-    onUpdatePositionAndSize(gLocalMeme.lines[gLocalMeme.lines.length - 1])
+    onUpdatePositionAndSize(gLocalMeme.lines.length - 1)
     renderImgWithText()
     drawFrame()
 }
@@ -147,7 +147,7 @@ function onSwitchLine() {
 
 function drawFrame() {
     renderImgWithText()
-
+    if (gLocalMeme.lines.length === 0) return
     var currLine = gLocalMeme.lines[gLocalMeme.selectedLineIdx]
 
     gCtx.beginPath()
@@ -187,6 +187,14 @@ function onChangeTextAlign(value) {
     renderImgWithText()
     drawFrame()
 }
+
+function onDeleteLine() {
+    deleteLine()
+    renderImgWithText()
+    drawFrame()
+}
+
+// Movement by Mouse or Keyboard
 
 function onDown(ev) {
     const pos = getEvPos(ev)

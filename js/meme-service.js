@@ -59,12 +59,10 @@ function changeFontSize(num) {
 }
 
 function addNewLine() {
-    var sameSize = gMeme.lines[0].size
-    var sameColor = gMeme.lines[0].color
     var newLine = {
         txt: 'Sample Text',
-        size: sameSize,
-        color: sameColor,
+        size: 40,
+        color: 'white',
         x: 0,
         y: 0,
         height: 0,
@@ -89,6 +87,11 @@ function updatePositionAndSize(idx, x, y, width, height) {
 
 function changeLinePosition(axis, num) {
     gMeme.lines[gMeme.selectedLineIdx][axis] += num
+}
+
+function deleteLine() {
+    gMeme.lines.splice(gMeme.selectedLineIdx, 1)
+    gMeme.selectedLineIdx = 0
 }
 
 
