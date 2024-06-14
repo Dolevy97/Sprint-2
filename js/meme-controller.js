@@ -98,6 +98,7 @@ function drawLines() {
     drawImage()
 
     lines.forEach((line, idx, lines) => {
+        // gCtx.textAlign = gTextAlign
         gCtx.font = `${lines[idx].size}px ${gCurrentFont}`;
         gCtx.fillStyle = lines[idx].color
         if (lines.length > 2) {
@@ -123,8 +124,8 @@ function onChangeColor(val) {
 function onChangeFontSize(num) {
     changeFontSize(num)
     renderImgWithText()
-    drawFrame()
     onUpdatePositionAndSize(gLocalMeme.selectedLineIdx)
+    drawFrame()
 }
 
 function renderImgWithText() {
@@ -153,28 +154,41 @@ function drawFrame() {
     gCtx.beginPath()
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'white'
-    gCtx.rect(currLine.x - 3, currLine.y - currLine.height - 3, currLine.width + 6, currLine.height + 6)
+    gCtx.rect(currLine.x, currLine.y - currLine.height - 3, currLine.width + 6, currLine.height + 6)
     gCtx.stroke()
     gCtx.closePath()
 
-    gCtx.lineWidth = 1
+    // Reset for the frame to not affect the text
     gCtx.strokeStyle = 'black'
     gCtx.lineWidth = 1
 }
 
 function onUpdatePositionAndSize(idx) {
     var currLine = gLocalMeme.lines[idx]
-    var x = (gElCanvas.width / 2 - (gCtx.measureText(currLine.txt).width / 2))
-    var y
-    if (gLocalMeme.lines.length > 2) {
-        y = 50 + (idx * (gElCanvas.height - 450))
+    gCtx.font = `${currLine.size}px ${gCurrentFont}`;
+    var x
+    if (!currLine.x) {
+        x = (gElCanvas.width / 2 - (gCtx.measureText(currLine.txt).width / 2))
     } else {
-        y = 50 + (idx * (gElCanvas.height - 100))
+        x = currLine.x
     }
-    var width = gCtx.measureText(gLocalMeme.lines[idx].txt).width
-    var height = gCtx.measureText(gLocalMeme.lines[idx].txt).actualBoundingBoxAscent + gCtx.measureText(gLocalMeme.lines[idx].txt).actualBoundingBoxDescent
+    var y
+    if (!currLine.y) {
+        if (gLocalMeme.lines.length > 2) {
+            y = 50 + (idx * (gElCanvas.height - 450))
+        } else {
+            y = 50 + (idx * (gElCanvas.height - 100))
+        }
+    } else {
+        y = currLine.y
+    }
+    var width = gCtx.measureText(currLine.txt).width
+    var height = 0.8 * currLine.size;
+
     updatePositionAndSize(idx, x, y, width, height)
 }
+
+
 
 function onChangeFontFamily(value) {
     gCurrentFont = value
