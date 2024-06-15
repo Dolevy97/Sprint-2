@@ -41,7 +41,7 @@
 
     .meme-edit-container {
         position: static;
-        transform: translateY(100%);
+        transform: translateY(70%);
 
         min-height: 20vh;
         min-width: 90vw;

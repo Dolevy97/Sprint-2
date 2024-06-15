@@ -4,6 +4,8 @@ var gNextId = 1
 var gImgs
 createImgs()
 
+var savedImgs
+
 var gMeme = {
     isDragged: false,
     selectedImgId: 1,
@@ -30,7 +32,6 @@ var gMeme = {
 }
 var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
 
-// Get for controller
 
 function getImgs() {
     return gImgs
@@ -40,9 +41,23 @@ function getMeme() {
     return gMeme
 }
 
-// Functions from controller
+function getSavedImgs() {
+    return savedImgs
+}
+
+// Saved Images
+
+function saveImg(imgContent, id) {
+    if (!savedImgs) {
+        savedImgs = [{ id, url: imgContent }]
+    }
+    else savedImgs.push({ id, url: imgContent })
+}
+
+// Functions from edit controller
 
 function changeSelectedMeme(id) {
+    console.log(id)
     gMeme.selectedImgId = id
 }
 

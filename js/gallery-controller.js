@@ -2,6 +2,7 @@
 
 function onInit() {
     renderGallery()
+    renderSavedImgs()
     renderFonts()
 }
 
@@ -16,9 +17,20 @@ function renderGallery() {
     addImageEventListeners(imgs)
 }
 
-function addImageEventListeners(imgs) {
-    var imgList = document.querySelectorAll('.meme-img')
+function renderSavedImgs() {
+    var imgs = getSavedImgs()
+    if (!imgs) return
+    var strHTML = imgs.map(img =>
+        `<img class='saved-img meme-img' src='${img.url}'></img>`
+    )
+    const elSavedGallery = document.querySelector('.saved-memes')
+    elSavedGallery.innerHTML = strHTML.join('')
 
+    addImageEventListeners(imgs, true)
+}
+
+function addImageEventListeners(imgs, saved = false) {
+    var imgList = saved ? document.querySelectorAll('.saved-img') : document.querySelectorAll('.meme-img');
     imgList.forEach((img, idx) => {
         img.addEventListener('click', function () {
             renderPage('meme-editor')
@@ -45,6 +57,6 @@ function renderPage(elPage) {
     for (var i = 0; i < allPages.length; i++) {
         allPages[i].style.display = 'none'
     }
-    console.log('pageToRender: ', pageToRender)
     pageToRender.style.display = 'block'
+    document.querySelector('.line-text').value = ''
 }

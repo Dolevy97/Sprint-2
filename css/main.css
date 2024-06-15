@@ -231,6 +231,28 @@ body {
     text-decoration: none;
 }
 
+/* Saved Images */
+
+
+.saved-memes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    min-height: 50vh;
+    height: 100%;
+    max-height: calc(100vh - 10.5vh - 18.5vh - 18.5vh);
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    margin-inline: 10px;
+    margin-block: 10px;
+
+    padding: 10px;
+}
+
 /* Meme-Edit */
 
 .meme-editor {

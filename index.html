@@ -94,8 +94,11 @@
                 <button class="btn switch-line" onclick="onSwitchLine()">Switch Line</button>
                 <button class="btn del-line" onclick="onDeleteLine()">Delete Line</button>
             </div>
-            <a href="" onclick="onDownloadImg(this)" download="my-img.jpg"><button type="button"
+            <div class="save-download-container">
+                <a href="" onclick="onDownloadImg(this)" download="my-img.jpg"><button type="button"
                     class="btn btn-download">Download</button></a>
+                    <button class="btn btn-save" onclick="onSaveImg()">Save</button>
+            </div>
         </div>
     </section>
 

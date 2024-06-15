@@ -91,6 +91,7 @@ function onUpdateText(val) {
     setLineTxt(val)
     onUpdatePositionAndSize(gLocalMeme.selectedLineIdx)
     renderImgWithText()
+    drawFrame()
 }
 
 
@@ -164,7 +165,7 @@ function drawFrame(rand = false) {
     gCtx.beginPath()
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'white'
-    gCtx.rect(currLine.x, currLine.y - currLine.height - 3, currLine.width + 6, currLine.height + 6)
+    gCtx.rect(currLine.x - 3, currLine.y - currLine.height - 3, currLine.width + 6, currLine.height + 6)
     gCtx.stroke()
     gCtx.closePath()
 
@@ -229,6 +230,11 @@ function onDeleteLine() {
     renderImgWithText()
     drawFrame()
 }
+
+function cleanFrame() {
+    renderImgWithText()
+}
+
 
 // Movement by Mouse or Keyboard
 
@@ -299,8 +305,18 @@ function onKeyDown(ev) {
 // Download / Upload / Share
 
 function onDownloadImg(elLink) {
+    cleanFrame()
     const imgContent = gElCanvas.toDataURL('image/jpeg')
     elLink.href = imgContent
+    drawFrame()
+}
+
+function onSaveImg() {
+    cleanFrame()
+    const imgContent = gElCanvas.toDataURL('image/jpeg')
+    saveImg(imgContent, gLocalMeme.selectedImgId)
+    renderSavedImgs()
+    drawFrame()
 }
 
 
