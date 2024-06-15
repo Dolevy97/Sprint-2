@@ -196,6 +196,7 @@ function onChangeTextAlign(value) {
     if (gMeme.selectedLineIdx === -1) return
     const lines = gLocalMeme.lines
     lines.forEach((line, idx) => {
+        gCtx.font = `${line.size}px ${gCurrentFont}`;
         if (value === 'left') {
             line.x = 0
         } else if (value === 'center') {
