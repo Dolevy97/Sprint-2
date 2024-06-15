@@ -30,6 +30,13 @@ function addImageEventListeners(imgs) {
     })
 }
 
+function onFlexible() {
+    const imgs = getImgs()
+    const randImg = getRandomInt(0, imgs.length)
+    renderPage('meme-editor')
+    changeSelectedMeme(imgs[randImg].id)
+    renderCanvas(imgs[randImg].url, true)
+}
 
 function renderPage(elPage) {
     const pageValue = elPage.toLowerCase()

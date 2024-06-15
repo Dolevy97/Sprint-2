@@ -119,6 +119,12 @@ body {
     left: 190px;
 }
 
+.btn-flexible {
+    font-family: inherit;
+    font-weight: 500;
+    width:100px;
+}
+
 .images-container {
     display: flex;
     justify-content: center;

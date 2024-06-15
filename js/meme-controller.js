@@ -48,7 +48,7 @@ function renderFonts() {
     document.querySelector('.font-family-select').innerHTML = strHTML.join('')
 }
 
-function renderCanvas(imgUrl) {
+function renderCanvas(imgUrl, rand = false) {
     var elImg = new Image;
     const elContainer = document.querySelector('.canvas-container')
     elImg.src = imgUrl
@@ -62,12 +62,14 @@ function renderCanvas(imgUrl) {
             gElCanvas.height = elImg.height
         }
 
-        renderImgWithText()
+
         document.querySelector('.meme-edit-container').style.display = 'flex'
         document.querySelector('.line-text').focus()
 
+        rand ? renderImgWithText(true) : renderImgWithText();
+
         firstPositionSizeUpdate()
-        drawFrame()
+        rand ? drawFrame(true) : drawFrame();
         addListeners()
     }
     elContainer.style.width = elImg.width + 50 + 'px'
@@ -91,26 +93,41 @@ function onUpdateText(val) {
     renderImgWithText()
 }
 
-function drawLines() {
+
+function renderImgWithText(rand = false) {
+    gCtx.drawImage(gElCurrMemeImg, 0, 0)
+    rand ? drawLines(true) : drawLines()
+}
+
+
+function drawLines(rand = false) {
     const lines = gLocalMeme.lines
 
     drawImage()
 
-    lines.forEach((line, idx, lines) => {
-        gCtx.font = `${lines[idx].size}px ${gCurrentFont}`;
-        gCtx.fillStyle = lines[idx].color
-        // Add this if and change the y settings to adapt for more lines
+    if (rand) {
+        gCtx.font = `${lines[0].size}px ${gCurrentFont}`;
+        gCtx.fillStyle = lines[0].color
+        gCtx.fillText(lines[0].txt, lines[0].x, lines[0].y)
+        gCtx.strokeText(lines[0].txt, lines[0].x, lines[0].y)
+    } else {
+        lines.forEach((line, idx, lines) => {
+            gCtx.font = `${lines[idx].size}px ${gCurrentFont}`;
+            gCtx.fillStyle = lines[idx].color
+            // Add this if and change the y settings to adapt for more lines
 
-        // if (lines.length > 2) {
-        //     gCtx.fillText(line.txt, line.x + gElCanvas.width / 2, line.y)
-        //     gCtx.strokeText(line.txt, line.x + gElCanvas.width / 2, line.y)
-        // } else {
-        gCtx.fillText(line.txt, line.x, line.y)
-        gCtx.strokeText(line.txt, line.x, line.y)
-        // }
+            // if (lines.length > 2) {
+            //     gCtx.fillText(line.txt, line.x + gElCanvas.width / 2, line.y)
+            //     gCtx.strokeText(line.txt, line.x + gElCanvas.width / 2, line.y)
+            // } else {
+            gCtx.fillText(line.txt, line.x, line.y)
+            gCtx.strokeText(line.txt, line.x, line.y)
+            // }
 
-    })
+        })
+    }
 }
+
 
 // Meme Editing Toolbar
 
@@ -127,11 +144,6 @@ function onChangeFontSize(num) {
     drawFrame()
 }
 
-function renderImgWithText() {
-    gCtx.drawImage(gElCurrMemeImg, 0, 0)
-    drawLines()
-}
-
 function onAddNewLine() {
     addNewLine()
     onUpdatePositionAndSize(gLocalMeme.lines.length - 1)
@@ -144,8 +156,8 @@ function onSwitchLine() {
     drawFrame()
 }
 
-function drawFrame() {
-    renderImgWithText()
+function drawFrame(rand = false) {
+    rand ? renderImgWithText(true) : renderImgWithText()
     if (gLocalMeme.lines.length === 0) return
     var currLine = gLocalMeme.lines[gLocalMeme.selectedLineIdx]
 
