@@ -35,6 +35,10 @@
         padding: 20px;
     }
 
+    /* .gallery-footer {
+        opacity:0;
+    } */
+
     .meme-edit-container {
         position: static;
         transform: translateY(100%);
@@ -47,6 +51,5 @@
 
     footer {
         position: fixed;
-
     }
 }
