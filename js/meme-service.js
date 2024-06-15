@@ -47,17 +47,29 @@ function getSavedImgs() {
 
 // Saved Images
 
-function saveImg(imgContent, id) {
+function saveImg(imgWithTextUrl, id, lines, cleanImgUrl) {
     if (!savedImgs) {
-        savedImgs = [{ id, url: imgContent }]
+        savedImgs = [{ id, url: imgWithTextUrl, lines, cleanImgUrl }]
     }
-    else savedImgs.push({ id, url: imgContent })
+    else savedImgs.push({ id, url: imgWithTextUrl, lines, cleanImgUrl })
+}
+
+function updateToDefault() {
+    const lines = gMeme.lines
+    lines.forEach(line => {
+        line.txt = 'Sample Text'
+        line.x = 0
+        line.y = 0
+    })
+}
+
+function updateLines(lines) {
+    console.log(lines)
 }
 
 // Functions from edit controller
 
 function changeSelectedMeme(id) {
-    console.log(id)
     gMeme.selectedImgId = id
 }
 

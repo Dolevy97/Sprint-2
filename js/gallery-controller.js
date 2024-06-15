@@ -23,20 +23,22 @@ function renderSavedImgs() {
     var strHTML = imgs.map(img =>
         `<img class='saved-img meme-img' src='${img.url}'></img>`
     )
-    const elSavedGallery = document.querySelector('.saved-memes')
+    const elSavedGallery = document.querySelector('.saved-memes-container')
     elSavedGallery.innerHTML = strHTML.join('')
 
     addImageEventListeners(imgs, true)
 }
 
+
 function addImageEventListeners(imgs, saved = false) {
     var imgList = saved ? document.querySelectorAll('.saved-img') : document.querySelectorAll('.meme-img');
     imgList.forEach((img, idx) => {
+        var url = saved ? imgs[idx].cleanImgUrl : imgs[idx].url;
         img.addEventListener('click', function () {
             renderPage('meme-editor')
         })
         img.addEventListener('click', function () {
-            renderCanvas(imgs[idx].url)
+            renderCanvas(url, false)
             changeSelectedMeme(imgs[idx].id)
         })
     })
@@ -58,5 +60,10 @@ function renderPage(elPage) {
         allPages[i].style.display = 'none'
     }
     pageToRender.style.display = 'block'
-    document.querySelector('.line-text').value = ''
+    if (pageValue === 'gallery') {
+        pageToRender.style.display = 'block'
+        document.querySelector('.meme-edit-container').style.display = 'none'
+        document.querySelector('.line-text').value = ''
+        updateToDefault()
+    }
 }

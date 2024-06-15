@@ -48,10 +48,11 @@ function renderFonts() {
     document.querySelector('.font-family-select').innerHTML = strHTML.join('')
 }
 
-function renderCanvas(imgUrl, rand = false) {
+function renderCanvas(imgUrl, rand = false, fromSaved = false, lines = []) {
     var elImg = new Image;
+    // var imgs = getImgs()
     const elContainer = document.querySelector('.canvas-container')
-    elImg.src = imgUrl
+    elImg.src = imgUrl;
     elImg.onload = function () {
         gElCurrMemeImg = elImg
         if (screen.width < 1000) {
@@ -62,14 +63,17 @@ function renderCanvas(imgUrl, rand = false) {
             gElCanvas.height = elImg.height
         }
 
-
         document.querySelector('.meme-edit-container').style.display = 'flex'
         document.querySelector('.line-text').focus()
 
+        if (lines === true) updateLines(lines)
+        
         rand ? renderImgWithText(true) : renderImgWithText();
 
         firstPositionSizeUpdate()
+
         rand ? drawFrame(true) : drawFrame();
+
         addListeners()
     }
     elContainer.style.width = elImg.width + 50 + 'px'
@@ -313,12 +317,13 @@ function onDownloadImg(elLink) {
 
 function onSaveImg() {
     cleanFrame()
-    const imgContent = gElCanvas.toDataURL('image/jpeg')
-    saveImg(imgContent, gLocalMeme.selectedImgId)
+    var imgWithText = gElCanvas.toDataURL('image/jpeg')
+    drawImage()
+    var cleanImg = gElCanvas.toDataURL('image/jpeg')
+    saveImg(imgWithText, gLocalMeme.selectedImgId, gLocalMeme.lines, cleanImg)
     renderSavedImgs()
     drawFrame()
 }
-
 
 // GetEvPos
 

@@ -23,6 +23,8 @@ body {
 
     height: 4.5vh;
 
+    width: 100%;
+
     background-color: var(--header-color);
 
     text-shadow: 1px 1px 5px rgb(0 0 0 / 0.4);
@@ -233,13 +235,12 @@ body {
 
 /* Saved Images */
 
-
-.saved-memes {
+.saved-memes-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 20px;
 
     min-height: 50vh;
     height: 100%;
@@ -251,6 +252,10 @@ body {
     margin-block: 10px;
 
     padding: 10px;
+}
+
+.saved-img {
+    margin: 10px;
 }
 
 /* Meme-Edit */
