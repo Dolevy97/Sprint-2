@@ -159,6 +159,7 @@ function changeLineX(idx, x) {
 function addImg(imgUrl, keywords) {
     var newImg = { id: gNextId++, url: imgUrl, keywords }
     gImgs.push(newImg)
+    _saveImgs()
 }
 
 // Drag
@@ -172,25 +173,29 @@ function moveText(dx, dy) {
 // FACTORY
 
 function createImgs() {
-    gImgs = []
-    gImgs.push(createImg(['trump', 'funny']))
-    gImgs.push(createImg(['cute', 'puppies']))
-    gImgs.push(createImg(['cute', 'puppy', 'baby']))
-    gImgs.push(createImg(['cute', 'tired', 'cat']))
-    gImgs.push(createImg(['success', 'baby']))
-    gImgs.push(createImg(['aliens', 'guy']))
-    gImgs.push(createImg(['baby', 'black']))
-    gImgs.push(createImg(['condescending', 'wonka']))
-    gImgs.push(createImg(['baby']))
-    gImgs.push(createImg(['laughing', 'obama']))
-    gImgs.push(createImg(['kissing', 'men']))
-    gImgs.push(createImg(['haim hecht', 'what would you do', 'חיים הכט', 'מה אתם הייתם עושים']))
-    gImgs.push(createImg(['leonardo dicaprio', 'great gatsby', 'toast']))
-    gImgs.push(createImg(['matrix', 'morpheus']))
-    gImgs.push(createImg(['one does not simply', 'sean bean']))
-    gImgs.push(createImg(['star trek', 'picard', 'laughing']))
-    gImgs.push(createImg(['putin']))
-    gImgs.push(createImg(['buzz lightyear']))
+    gImgs = loadFromStorage('imgs')
+    if (gImgs && gImgs.length !== 0) return
+    gImgs = [
+        createImg(['trump', 'funny']),
+        createImg(['cute', 'puppies']),
+        createImg(['cute', 'puppy', 'baby']),
+        createImg(['cute', 'tired', 'cat']),
+        createImg(['success', 'baby']),
+        createImg(['aliens', 'guy']),
+        createImg(['baby', 'black']),
+        createImg(['condescending', 'wonka']),
+        createImg(['baby']),
+        createImg(['laughing', 'obama']),
+        createImg(['kissing', 'men']),
+        createImg(['haim hecht', 'what would you do', 'חיים הכט', 'מה אתם הייתם עושים']),
+        createImg(['leonardo dicaprio', 'great gatsby', 'toast']),
+        createImg(['matrix', 'morpheus']),
+        createImg(['one does not simply', 'sean bean']),
+        createImg(['star trek', 'picard', 'laughing']),
+        createImg(['putin']),
+        createImg(['buzz lightyear'])
+    ]
+    _saveImgs()
 }
 
 function createImg(keywords = ['funny', 'cat']) {
@@ -200,3 +205,8 @@ function createImg(keywords = ['funny', 'cat']) {
         keywords,
     }
 }
+
+function _saveImgs() {
+    saveToStorage('imgs', gImgs)
+}
+
