@@ -227,11 +227,17 @@ body {
 .fa-brands {
     color: var(--header-color);
     margin-inline: 5px;
+    transition: scale .2s
+}
+
+.fa-brands:hover {
+    scale: 1.1;
 }
 
 .social-link {
     text-decoration: none;
 }
+
 
 /* Saved Images */
 

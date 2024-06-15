@@ -40,7 +40,6 @@ var gCurrentFont = gLocalMeme.lines[gLocalMeme.selectedLineIdx].font
 var gTextAlign = 'center'
 var gElCurrMemeImg
 let gStartPos
-let editFromSaved = false
 
 
 function renderFonts() {
@@ -71,8 +70,10 @@ function renderCanvas(imgUrl, rand = false, fromSaved = false, lines = []) {
 
         if (fromSaved) {
             renderImgWithText(false, true, lines)
+            document.querySelector('.btn-save').disabled = true
         } else {
             rand ? renderImgWithText(true) : renderImgWithText();
+            document.querySelector('.btn-save').disabled = false
         }
 
         addListeners()
@@ -108,7 +109,7 @@ function renderImgWithText(rand = false, fromSaved = false, lines = []) {
         rand ? drawLines(true) : drawLines();
     }
 
-    drawFrame();
+    drawFrame()
 }
 
 // Only called when loading a saved img
@@ -182,7 +183,7 @@ function drawFrame() {
     gCtx.beginPath()
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'white'
-    gCtx.rect(currLine.x - 3, currLine.y - currLine.height - 3, currLine.width + 6, currLine.height + 6)
+    gCtx.rect(currLine.x - 5, currLine.y - currLine.height - 5, currLine.width + 12, currLine.height + 12)
     gCtx.stroke()
     gCtx.closePath()
 
@@ -252,7 +253,8 @@ function onDeleteLine() {
 }
 
 function cleanFrame() {
-    renderImgWithText()
+    drawImage()
+    drawLines()
 }
 
 
