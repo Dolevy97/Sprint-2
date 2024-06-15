@@ -156,6 +156,11 @@ function changeLineX(idx, x) {
     gMeme.lines[idx].x = x
 }
 
+function addImg(imgUrl, keywords) {
+    var newImg = { id: gNextId++, url: imgUrl, keywords }
+    gImgs.push(newImg)
+}
+
 // Drag
 
 function moveText(dx, dy) {

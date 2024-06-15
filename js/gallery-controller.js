@@ -51,6 +51,37 @@ function addImageEventListeners(imgs, saved = false) {
     })
 }
 
+
+function onUpload(ev) {
+    loadImageFromInput(ev, uploadImg)
+}
+
+// Read the file from the input
+// When done send the image to the callback function
+function loadImageFromInput(ev, onImageReady) {
+    const reader = new FileReader()
+    reader.onload = function (event) {
+        let elImg = new Image()
+        elImg.src = event.target.result
+        elImg.onload = () => onImageReady(elImg)
+    }
+    reader.readAsDataURL(ev.target.files[0])
+}
+
+function uploadImg(elImg) {
+    var keywords = []
+    var newKeyword = prompt('Enter keywords to describe the image (quit to stop)')
+    while (newKeyword !== 'quit') {
+        keywords.push(newKeyword)
+        newKeyword = prompt('Enter keywords to describe the image (quit to stop)')
+    }
+    addImg(elImg.src, keywords)
+    document.querySelector('.file-input').value = ''
+    renderGallery()
+}
+
+
+
 function onFlexible() {
     const imgs = getImgs()
     const randImg = getRandomInt(0, imgs.length)

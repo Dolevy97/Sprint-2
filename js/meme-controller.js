@@ -57,11 +57,9 @@ function renderFonts() {
     document.querySelector('.font-family-select').innerHTML = strHTML.join('')
 }
 
-
-
 function renderCanvas(imgUrl, rand = false, fromSaved = false, lines = []) {
-    var elImg = new Image;
     const elContainer = document.querySelector('.canvas-container')
+    var elImg = new Image;
     elImg.src = imgUrl;
     elImg.onload = function () {
         gLocalMeme = getMeme()
@@ -357,7 +355,7 @@ function onSaveImg() {
     var linesCopy = JSON.parse(JSON.stringify(gLocalMeme.lines));
     saveImg(imgWithText, gLocalMeme.selectedImgId, linesCopy, cleanImg, gCurrentFont)
     renderImgWithText()
-    renderSaved
+    renderSavedImgs()
 }
 
 // GetEvPos + Add Listeners
