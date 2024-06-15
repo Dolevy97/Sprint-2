@@ -12,7 +12,7 @@ var gMeme = {
     selectedLineIdx: 0,
     lines: [
         {
-            txt: 'I sometimes eat Falafel',
+            txt: 'Sample Text',
             size: 40,
             color: 'white',
             x: 0,
@@ -20,7 +20,7 @@ var gMeme = {
             height: 0,
             width: 0
         }, {
-            txt: 'with no fries',
+            txt: 'Sample Text',
             size: 40,
             color: 'white',
             x: 0,
@@ -64,6 +64,7 @@ function updateToDefault() {
 }
 
 function updateLines(lines) {
+    gMeme.lines = lines
     console.log(lines)
 }
 
@@ -78,6 +79,7 @@ function setLineTxt(txt) {
 }
 
 function changeColor(val, currLine) {
+    if (gMeme.selectedLineIdx === -1) return
     gMeme.lines[currLine].color = val
 }
 
@@ -96,6 +98,8 @@ function addNewLine() {
         width: 0
     }
     gMeme.lines.push(newLine)
+    if (gMeme.lines.length === 1) gMeme.selectedLineIdx = 0
+
 }
 
 function switchLine(idx) {
@@ -119,6 +123,7 @@ function changeLinePosition(axis, num) {
 function deleteLine() {
     gMeme.lines.splice(gMeme.selectedLineIdx, 1)
     gMeme.selectedLineIdx = 0
+    if (!gMeme.lines.length) gMeme.selectedLineIdx = -1
 }
 
 function changeLineX(idx, x) {

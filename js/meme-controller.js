@@ -66,8 +66,10 @@ function renderCanvas(imgUrl, rand = false, fromSaved = false, lines = []) {
         document.querySelector('.meme-edit-container').style.display = 'flex'
         document.querySelector('.line-text').focus()
 
-        if (lines === true) updateLines(lines)
-        
+        if (fromSaved) {
+            renderImgWithText(false, true, lines)
+        }
+
         rand ? renderImgWithText(true) : renderImgWithText();
 
         firstPositionSizeUpdate()
@@ -80,7 +82,7 @@ function renderCanvas(imgUrl, rand = false, fromSaved = false, lines = []) {
     elContainer.style.height = elImg.height + 50 + 'px'
 }
 
-// Doing first one in order to be able to change locations and not have the y fixated
+// Doing first one in order to be able to change locations and not have the y/x fixated
 function firstPositionSizeUpdate() {
     const lines = gLocalMeme.lines
     lines.forEach((line, idx) => onUpdatePositionAndSize(idx))
@@ -99,15 +101,27 @@ function onUpdateText(val) {
 }
 
 
-function renderImgWithText(rand = false) {
+function renderImgWithText(rand = false, fromSaved = false, lines) {
     gCtx.drawImage(gElCurrMemeImg, 0, 0)
+    if (fromSaved) {
+        renderSavedLines(lines)
+    }
     rand ? drawLines(true) : drawLines()
 }
 
 
+function renderSavedLines(lines) {
+
+    lines.forEach(line => {
+        gCtx.font = `${line.size}px ${line.font}`;
+        gCtx.fillStyle = line.color;
+        gCtx.fillText(line.txt, line.x, line.y);
+        gCtx.strokeText(line.txt, line.x, line.y);
+    });
+}
+
 function drawLines(rand = false) {
     const lines = gLocalMeme.lines
-
     drawImage()
 
     if (rand) {
@@ -137,12 +151,14 @@ function drawLines(rand = false) {
 // Meme Editing Toolbar
 
 function onChangeColor(val) {
+
     changeColor(val, gLocalMeme.selectedLineIdx)
     renderImgWithText()
     drawFrame()
 }
 
 function onChangeFontSize(num) {
+    if (gMeme.selectedLineIdx === -1) return
     changeFontSize(num)
     renderImgWithText()
     onUpdatePositionAndSize(gLocalMeme.selectedLineIdx)
@@ -215,11 +231,11 @@ function onChangeTextAlign(value) {
     lines.forEach((line, idx) => {
         gCtx.font = `${line.size}px ${gCurrentFont}`;
         if (value === 'left') {
-            line.x = 0
+            line.x = 4
         } else if (value === 'center') {
             line.x = (gElCanvas.width / 2 - (gCtx.measureText(line.txt).width / 2))
         } else {
-            line.x = gElCanvas.width - gCtx.measureText(line.txt).width
+            line.x = gElCanvas.width - gCtx.measureText(line.txt).width - 4
         }
         changeLineX(idx, line.x)
         gTextAlign = value
@@ -320,7 +336,8 @@ function onSaveImg() {
     var imgWithText = gElCanvas.toDataURL('image/jpeg')
     drawImage()
     var cleanImg = gElCanvas.toDataURL('image/jpeg')
-    saveImg(imgWithText, gLocalMeme.selectedImgId, gLocalMeme.lines, cleanImg)
+    var linesCopy = JSON.parse(JSON.stringify(gLocalMeme.lines));
+    saveImg(imgWithText, gLocalMeme.selectedImgId, linesCopy, cleanImg)
     renderSavedImgs()
     drawFrame()
 }
