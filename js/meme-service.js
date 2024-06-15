@@ -35,9 +35,16 @@ var gMeme = {
 var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
 
 
-function getImgs() {
-    return gImgs
+function getImgs(filter = '') {
+    var imgs = gImgs
+
+    // Filter
+
+    imgs = _filterImgs(filter)
+
+    return imgs
 }
+
 
 function getMeme() {
     return gMeme
@@ -45,6 +52,12 @@ function getMeme() {
 
 function getSavedImgs() {
     return savedImgs
+}
+
+function _filterImgs(filter) {
+    var imgs = gImgs
+    if (filter) imgs = imgs.filter(img => img.keywords.includes(filter))
+    return imgs
 }
 
 // Saved Images
@@ -154,9 +167,24 @@ function moveText(dx, dy) {
 
 function createImgs() {
     gImgs = []
-    for (var i = 0; i < 18; i++) {
-        gImgs.push(createImg())
-    }
+    gImgs.push(createImg(['trump', 'funny']))
+    gImgs.push(createImg(['cute', 'puppies']))
+    gImgs.push(createImg(['cute', 'puppy', 'baby']))
+    gImgs.push(createImg(['cute', 'tired', 'cat']))
+    gImgs.push(createImg(['success', 'baby']))
+    gImgs.push(createImg(['aliens', 'guy']))
+    gImgs.push(createImg(['baby', 'black']))
+    gImgs.push(createImg(['condescending', 'wonka']))
+    gImgs.push(createImg(['baby']))
+    gImgs.push(createImg(['laughing', 'obama']))
+    gImgs.push(createImg(['kissing', 'men']))
+    gImgs.push(createImg(['haim hecht', 'what would you do', 'חיים הכט', 'מה אתם הייתם עושים']))
+    gImgs.push(createImg(['leonardo dicaprio', 'great gatsby', 'toast']))
+    gImgs.push(createImg(['matrix', 'morpheus']))
+    gImgs.push(createImg(['one does not simply', 'sean bean']))
+    gImgs.push(createImg(['star trek', 'picard', 'laughing']))
+    gImgs.push(createImg(['putin']))
+    gImgs.push(createImg(['buzz lightyear']))
 }
 
 function createImg(keywords = ['funny', 'cat']) {

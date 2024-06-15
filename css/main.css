@@ -89,7 +89,7 @@ body {
 .search-input {
     position: relative;
 
-    width: 200px;
+    width: 140px;
     height: 1.5em;
     margin: 10px;
 
@@ -118,7 +118,17 @@ body {
 .input-search-icon {
     position: absolute;
     width: 20px;
-    left: 190px;
+    left: 130px;
+}
+
+/* Hide the annoying datalist triangle */
+
+[list]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+}
+
+.gallery-filter-datalist {
+    width:20px;
 }
 
 .btn-flexible {
@@ -140,7 +150,9 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
 
+
     margin-inline: 10px;
+
     margin-block: 10px;
 
 }
@@ -268,13 +280,13 @@ body {
 
 .meme-editor {
     position: relative;
-    height: 80.5vh
+    height: 80.5vh;
 }
 
 .canvas-container {
     position: absolute;
     top: 50%;
-    left: 0;
+    left: 20%;
     translate: 0 -50%;
 
     display: flex;
@@ -309,7 +321,7 @@ canvas:focus {
     background-color: var(--secondary-header-color);
 
     border-radius: 20px;
-    margin-inline: 20px;
+    margin-inline: 50px;
 }
 
 .line-text {

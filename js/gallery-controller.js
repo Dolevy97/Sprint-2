@@ -1,13 +1,16 @@
 'use strict'
 
+var gFilter
+
 function onInit() {
     renderGallery()
     renderSavedImgs()
+    renderGalleryFilterDatalist()
     renderFonts()
 }
 
 function renderGallery() {
-    var imgs = getImgs()
+    var imgs = getImgs(gFilter)
     var strHTML = imgs.map(img =>
         `<img class='meme-img' src='${img.url}'></img>`
     )
@@ -27,6 +30,14 @@ function renderSavedImgs() {
     addImageEventListeners(imgs, true)
 }
 
+function renderGalleryFilterDatalist() {
+    var imgs = getImgs()
+    const uniqueKeywords = [...new Set(imgs.flatMap(img => img.keywords))];
+    var strHTML = uniqueKeywords.map(keyword =>
+        `<option value="${keyword}"></option>`
+    )
+    document.querySelector('.gallery-filter-datalist').innerHTML = strHTML.join('')
+}
 
 function addImageEventListeners(imgs, saved = false) {
     var imgList = saved ? document.querySelectorAll('.saved-img') : document.querySelectorAll('.meme-img');
@@ -59,6 +70,19 @@ function renderPage(elPage) {
     if (pageValue !== 'meme-editor') {
         document.querySelector('.meme-edit-container').style.display = 'none'
         document.querySelector('.line-text').value = ''
+        document.querySelector('.font-family-select').selectedIndex = 0
         updateToDefault()
     }
+}
+
+function onFilter(value) {
+    gFilter = value
+    getImgs(value)
+    renderGallery()
+}
+
+function onClearFilter() {
+    document.querySelector('.search-input').value = ''
+    gFilter = ''
+    renderGallery()
 }

@@ -25,7 +25,11 @@
 
     <section class="meme-gallery gallery page">
         <section class="gallery-header">
-            <input class="search-input" type="text" placeholder="Enter keyword(s)">
+            <div class="filter-container">
+                <input list="gallery-filter" class="search-input" placeholder="Enter keyword(s)"
+                    oninput="onFilter(value)">
+                <button class="btn btn-clear-filter" onclick="onClearFilter()">Clear</button>
+            </div>
             <img class="input-search-icon" src="img/search.png" alt="magnifying-glass">
             <button class="btn btn-flexible" onclick="onFlexible()">I'm flexible</button>
             <div class="frequent-keywords">
@@ -46,7 +50,8 @@
             </div>
             <div class="profile-text-container">
                 <h2>Dolev Levy</h2>
-                <h5>An overall successful student in Coding Academy. During the making of this project, he has cried only a few times.</h5>
+                <h5>An overall successful student in Coding Academy. During the making of this project, he has cried
+                    only a few times.</h5>
                 <div class="profile-links-container">
                     <a class="social-link" href="https://www.linkedin.com/in/dolev-levy-658436223/" target="_blank">
                         <div class="fa-brands fa-linkedin fa-2xl"></div>
@@ -68,38 +73,46 @@
     </section>
 
     <section class="meme-editor page" style="display:none">
-        <div class="canvas-container">
-            <canvas width="250" height="250" tabindex='1'></canvas>
-        </div>
-        <div class="meme-edit-container" style="display:none">
-            <div class="text-container">
-                <input class="line-text" type="text" placeholder="Enter your text here"
-                    oninput="onUpdateText(this.value)">
+        <div class="meme-editor-page-container">
+            <div class="canvas-container">
+                <canvas width="250" height="250" tabindex='1'></canvas>
             </div>
-            <div class="text-alignment-and-size">
-                <button class="btn btn-font-size" onclick="onChangeFontSize(1)">A+</button>
-                <button class="btn btn-font-size" onclick="onChangeFontSize(-1)">A-</button>
-                <button class="btn btn-text-align" onclick="onChangeTextAlign('left')">left</button>
-                <button class="btn btn-text-align" onclick="onChangeTextAlign('center')">center</button>
-                <button class="btn btn-text-align" onclick="onChangeTextAlign('right')">right</button>
-            </div>
-            <div class="color-font">
-                <input type="color" onchange="onChangeColor(value)" value="#ffffff">
-                <select class="font-family-select" onchange="onChangeFontFamily(value)">
-                </select>
-            </div>
-            <div class="line-container">
-                <button class="btn add-line" onclick="onAddNewLine()">New Line</button>
-                <button class="btn switch-line" onclick="onSwitchLine()">Switch Line</button>
-                <button class="btn del-line" onclick="onDeleteLine()">Delete Line</button>
-            </div>
-            <div class="save-download-container">
-                <a href="" onclick="onDownloadImg(this)" download="my-img.jpg"><button type="button"
-                    class="btn btn-download">Download</button></a>
+            <div class="meme-edit-container" style="display:none">
+                <div class="text-container">
+                    <input class="line-text" type="text" placeholder="Enter your text here"
+                        oninput="onUpdateText(this.value)">
+                </div>
+                <div class="text-alignment-and-size">
+                    <button class="btn btn-font-size" onclick="onChangeFontSize(1)">A+</button>
+                    <button class="btn btn-font-size" onclick="onChangeFontSize(-1)">A-</button>
+                    <button class="btn btn-text-align" onclick="onChangeTextAlign('left')">left</button>
+                    <button class="btn btn-text-align" onclick="onChangeTextAlign('center')">center</button>
+                    <button class="btn btn-text-align" onclick="onChangeTextAlign('right')">right</button>
+                </div>
+                <div class="color-font">
+                    <input type="color" onchange="onChangeColor(value)" value="#ffffff">
+                    <select class="font-family-select" onchange="onChangeFontFamily(value)">
+                    </select>
+                </div>
+                <div class="line-container">
+                    <button class="btn add-line" onclick="onAddNewLine()">New Line</button>
+                    <button class="btn switch-line" onclick="onSwitchLine()">Switch Line</button>
+                    <button class="btn del-line" onclick="onDeleteLine()">Delete Line</button>
+                </div>
+                <div class="save-download-container">
+                    <a href="" onclick="onDownloadImg(this)" download="my-img.jpg"><button type="button"
+                            class="btn btn-download">Download</button></a>
                     <button class="btn btn-save" onclick="onSaveImg()">Save</button>
+                </div>
             </div>
+
         </div>
     </section>
+
+    <datalist class="gallery-filter-datalist" id="gallery-filter">
+        <option value=""></option>
+    </datalist>
+
 
     <section class="about page" style="display:none;"></section>
 
