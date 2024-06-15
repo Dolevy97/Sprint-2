@@ -88,6 +88,7 @@ function updateLines(lines) {
     console.log(lines)
 }
 
+
 // Functions from edit controller
 
 function changeSelectedMeme(id) {
@@ -111,9 +112,9 @@ function changeFontSize(num) {
     gMeme.lines[gMeme.selectedLineIdx].size += num
 }
 
-function addNewLine() {
+function addNewLine(txt = 'Sample Text') {
     var newLine = {
-        txt: 'Sample Text',
+        txt,
         size: 40,
         color: 'white',
         x: 0,

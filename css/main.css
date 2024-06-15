@@ -128,7 +128,7 @@ body {
 }
 
 .gallery-filter-datalist {
-    width:20px;
+    width: 20px;
 }
 
 .btn-flexible {
@@ -326,9 +326,22 @@ canvas:focus {
 
 .line-text {
     height: 2em;
+    width: 250px;
+
     margin-block-end: 5px;
 
     border-radius: 5px;
+}
+
+.text-alignment-and-size,
+.color-font,
+.line-container,
+.save-download-container,
+.stickers-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 250px;
 }
 
 input[type='color'] {
@@ -338,6 +351,19 @@ input[type='color'] {
     margin: 5px;
 
     box-shadow: 1px 1px 3px black;
+}
+
+.stickers-container {
+    background-color:var(--primary-color);
+    height:60px;
+
+    border-radius:30px;
+}
+
+.sticker {
+    font-size:1.5em;
+    /* width:50px;
+    height:50px; */
 }
 
 .btn-font-size {

@@ -269,6 +269,11 @@ function cleanFrame() {
     drawLines()
 }
 
+function onAddSticker(value) {
+    addNewLine(value)
+    onUpdatePositionAndSize(gLocalMeme.lines.length - 1)
+    renderImgWithText()
+}
 
 // Movement by Mouse or Keyboard
 
