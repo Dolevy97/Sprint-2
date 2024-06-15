@@ -18,7 +18,8 @@ var gMeme = {
             x: 0,
             y: 0,
             height: 0,
-            width: 0
+            width: 0,
+            font: 'Impact'
         }, {
             txt: 'Sample Text',
             size: 40,
@@ -26,7 +27,8 @@ var gMeme = {
             x: 0,
             y: 0,
             height: 0,
-            width: 0
+            width: 0,
+            font: 'Impact'
         }
     ]
 }
@@ -47,11 +49,11 @@ function getSavedImgs() {
 
 // Saved Images
 
-function saveImg(imgWithTextUrl, id, lines, cleanImgUrl) {
+function saveImg(imgWithTextUrl, id, lines, cleanImgUrl, font) {
     if (!savedImgs) {
-        savedImgs = [{ id, url: imgWithTextUrl, lines, cleanImgUrl }]
+        savedImgs = [{ id, url: imgWithTextUrl, lines, cleanImgUrl, font }]
     }
-    else savedImgs.push({ id, url: imgWithTextUrl, lines, cleanImgUrl })
+    else savedImgs.push({ id, url: imgWithTextUrl, lines, cleanImgUrl, font })
 }
 
 function updateToDefault() {
@@ -78,6 +80,10 @@ function setLineTxt(txt) {
     gMeme.lines[gMeme.selectedLineIdx].txt = txt
 }
 
+function updateFont(value) {
+    gMeme.lines[gMeme.selectedLineIdx].font = value
+}
+
 function changeColor(val, currLine) {
     if (gMeme.selectedLineIdx === -1) return
     gMeme.lines[currLine].color = val
@@ -95,7 +101,8 @@ function addNewLine() {
         x: 0,
         y: 0,
         height: 0,
-        width: 0
+        width: 0,
+        font: 'Impact'
     }
     gMeme.lines.push(newLine)
     if (gMeme.lines.length === 1) gMeme.selectedLineIdx = 0

@@ -38,7 +38,7 @@ function addImageEventListeners(imgs, saved = false) {
             renderPage('meme-editor')
         })
         img.addEventListener('click', function () {
-            renderCanvas(url, false, saved)
+            renderCanvas(url, false, saved, imgs[idx].lines)
             changeSelectedMeme(imgs[idx].id)
         })
     })

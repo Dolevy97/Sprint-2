@@ -36,10 +36,12 @@ const gCtx = gElCanvas.getContext("2d");
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 const gLocalMeme = getMeme()
 
-var gCurrentFont = 'Impact'
+var gCurrentFont = gLocalMeme.lines[gLocalMeme.selectedLineIdx].font
 var gTextAlign = 'center'
 var gElCurrMemeImg
 let gStartPos
+let editFromSaved = false
+
 
 function renderFonts() {
     var strHTML = fonts.map(font =>
@@ -50,7 +52,6 @@ function renderFonts() {
 
 function renderCanvas(imgUrl, rand = false, fromSaved = false, lines = []) {
     var elImg = new Image;
-    // var imgs = getImgs()
     const elContainer = document.querySelector('.canvas-container')
     elImg.src = imgUrl;
     elImg.onload = function () {
@@ -66,15 +67,13 @@ function renderCanvas(imgUrl, rand = false, fromSaved = false, lines = []) {
         document.querySelector('.meme-edit-container').style.display = 'flex'
         document.querySelector('.line-text').focus()
 
-        if (fromSaved) {
-            renderImgWithText(false, true, lines)
-        }
-
-        rand ? renderImgWithText(true) : renderImgWithText();
-
         firstPositionSizeUpdate()
 
-        rand ? drawFrame(true) : drawFrame();
+        if (fromSaved) {
+            renderImgWithText(false, true, lines)
+        } else {
+            rand ? renderImgWithText(true) : renderImgWithText();
+        }
 
         addListeners()
     }
@@ -101,17 +100,20 @@ function onUpdateText(val) {
 }
 
 
-function renderImgWithText(rand = false, fromSaved = false, lines) {
-    gCtx.drawImage(gElCurrMemeImg, 0, 0)
+function renderImgWithText(rand = false, fromSaved = false, lines = []) {
+    drawImage()
     if (fromSaved) {
         renderSavedLines(lines)
+    } else {
+        rand ? drawLines(true) : drawLines();
     }
-    rand ? drawLines(true) : drawLines()
+
+    drawFrame();
 }
 
+// Only called when loading a saved img
 
 function renderSavedLines(lines) {
-
     lines.forEach(line => {
         gCtx.font = `${line.size}px ${line.font}`;
         gCtx.fillStyle = line.color;
@@ -123,7 +125,6 @@ function renderSavedLines(lines) {
 function drawLines(rand = false) {
     const lines = gLocalMeme.lines
     drawImage()
-
     if (rand) {
         gCtx.font = `${lines[0].size}px ${gCurrentFont}`;
         gCtx.fillStyle = lines[0].color
@@ -154,31 +155,27 @@ function onChangeColor(val) {
 
     changeColor(val, gLocalMeme.selectedLineIdx)
     renderImgWithText()
-    drawFrame()
 }
 
 function onChangeFontSize(num) {
     if (gMeme.selectedLineIdx === -1) return
     changeFontSize(num)
-    renderImgWithText()
     onUpdatePositionAndSize(gLocalMeme.selectedLineIdx)
-    drawFrame()
+    renderImgWithText()
 }
 
 function onAddNewLine() {
     addNewLine()
     onUpdatePositionAndSize(gLocalMeme.lines.length - 1)
     renderImgWithText()
-    drawFrame()
 }
 
 function onSwitchLine() {
     switchLine()
-    drawFrame()
+    renderImgWithText()
 }
 
-function drawFrame(rand = false) {
-    rand ? renderImgWithText(true) : renderImgWithText()
+function drawFrame() {
     if (gLocalMeme.lines.length === 0) return
     var currLine = gLocalMeme.lines[gLocalMeme.selectedLineIdx]
 
@@ -193,6 +190,7 @@ function drawFrame(rand = false) {
     gCtx.strokeStyle = 'black'
     gCtx.lineWidth = 1
 }
+
 
 function onUpdatePositionAndSize(idx) {
     var currLine = gLocalMeme.lines[idx]
@@ -221,6 +219,8 @@ function onUpdatePositionAndSize(idx) {
 
 function onChangeFontFamily(value) {
     gCurrentFont = value
+    updateFont(value)
+    onUpdatePositionAndSize(gLocalMeme.selectedLineIdx)
     renderImgWithText()
     drawFrame()
 }
@@ -267,10 +267,10 @@ function onDown(ev) {
             pos.y >= currLine.y - currLine.height &&
             pos.y <= currLine.y) {
             switchLine(idx)
-            drawFrame()
             gLocalMeme.isDragged = true
             gStartPos = pos
             document.body.style.cursor = 'grabbing'
+            renderImgWithText()
         }
     })
 
@@ -286,7 +286,6 @@ function onMove(ev) {
     moveText(dx, dy)
     gStartPos = pos
     renderImgWithText()
-    drawFrame()
 }
 
 function onUp(ev) {
@@ -337,9 +336,9 @@ function onSaveImg() {
     drawImage()
     var cleanImg = gElCanvas.toDataURL('image/jpeg')
     var linesCopy = JSON.parse(JSON.stringify(gLocalMeme.lines));
-    saveImg(imgWithText, gLocalMeme.selectedImgId, linesCopy, cleanImg)
+    saveImg(imgWithText, gLocalMeme.selectedImgId, linesCopy, cleanImg, gCurrentFont)
+    renderImgWithText()
     renderSavedImgs()
-    drawFrame()
 }
 
 // GetEvPos
