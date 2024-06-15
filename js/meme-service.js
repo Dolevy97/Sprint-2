@@ -60,8 +60,13 @@ function updateToDefault() {
     const lines = gMeme.lines
     lines.forEach(line => {
         line.txt = 'Sample Text'
+        line.font = 'Impact'
+        line.color = 'White'
+        line.size = 40
         line.x = 0
         line.y = 0
+        line.height = 0
+        line.width = 0
     })
 }
 

@@ -31,16 +31,24 @@ const fonts = [
     "default"
 ];
 
+// Canvas, context and touch events
+
 const gElCanvas = document.querySelector('canvas')
 const gCtx = gElCanvas.getContext("2d");
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
-const gLocalMeme = getMeme()
 
-var gCurrentFont = gLocalMeme.lines[gLocalMeme.selectedLineIdx].font
+// gMeme for controller
+
+var gLocalMeme = getMeme()
+
+// global font, text alignment, current image and starting pos
+
+var gCurrentFont
 var gTextAlign = 'center'
 var gElCurrMemeImg
 let gStartPos
 
+// Render font list
 
 function renderFonts() {
     var strHTML = fonts.map(font =>
@@ -49,11 +57,15 @@ function renderFonts() {
     document.querySelector('.font-family-select').innerHTML = strHTML.join('')
 }
 
+
+
 function renderCanvas(imgUrl, rand = false, fromSaved = false, lines = []) {
     var elImg = new Image;
     const elContainer = document.querySelector('.canvas-container')
     elImg.src = imgUrl;
     elImg.onload = function () {
+        gLocalMeme = getMeme()
+        gCurrentFont = gLocalMeme.lines[gLocalMeme.selectedLineIdx].font
         gElCurrMemeImg = elImg
         if (screen.width < 1000) {
             gElCanvas.width = screen.width - 20
@@ -232,11 +244,11 @@ function onChangeTextAlign(value) {
     lines.forEach((line, idx) => {
         gCtx.font = `${line.size}px ${gCurrentFont}`;
         if (value === 'left') {
-            line.x = 4
+            line.x = 6
         } else if (value === 'center') {
             line.x = (gElCanvas.width / 2 - (gCtx.measureText(line.txt).width / 2))
         } else {
-            line.x = gElCanvas.width - gCtx.measureText(line.txt).width - 4
+            line.x = gElCanvas.width - gCtx.measureText(line.txt).width - 8
         }
         changeLineX(idx, line.x)
         gTextAlign = value
@@ -343,7 +355,7 @@ function onSaveImg() {
     renderSavedImgs()
 }
 
-// GetEvPos
+// GetEvPos + Add Listeners
 
 function getEvPos(ev) {
     let pos = {
