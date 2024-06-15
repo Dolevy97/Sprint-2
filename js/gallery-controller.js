@@ -45,5 +45,6 @@ function renderPage(elPage) {
     for (var i = 0; i < allPages.length; i++) {
         allPages[i].style.display = 'none'
     }
+    console.log('pageToRender: ', pageToRender)
     pageToRender.style.display = 'block'
 }
