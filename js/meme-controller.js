@@ -357,7 +357,7 @@ function onSaveImg() {
     var linesCopy = JSON.parse(JSON.stringify(gLocalMeme.lines));
     saveImg(imgWithText, gLocalMeme.selectedImgId, linesCopy, cleanImg, gCurrentFont)
     renderImgWithText()
-    renderSavedImgs()
+    renderSaved
 }
 
 // GetEvPos + Add Listeners
