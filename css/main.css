@@ -122,7 +122,7 @@ body {
 .btn-flexible {
     font-family: inherit;
     font-weight: 500;
-    width:100px;
+    width: 100px;
 }
 
 .images-container {
@@ -154,9 +154,45 @@ body {
 
 
 .gallery-footer {
-    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 18.5vh;
     max-height: 400px;
     background-color: var(--secondary-header-color);
+}
+
+.profile-pic {
+    border: 2px solid black;
+    width: 160px;
+    border-radius: 30%;
+}
+
+.profile-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width:50%;
+    margin-inline: 30px;
+}
+
+
+.profile-text-container h4 {
+    margin: 0;
+}
+
+.profile-links-container {
+    margin-block: 20px;
+}
+
+.fa-brands {
+    color: var(--header-color);
+    margin-inline: 5px;
+}
+
+.social-link {
+    text-decoration: none;
 }
 
 /* Meme-Edit */
