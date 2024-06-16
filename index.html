@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meme Generator</title>
-    <script src="https://kit.fontawesome.com/137b491d15.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body class="main-layout" onload="onInit()">
 
-    <header class="main-layout">
+    <!-- Header / Nav-Bar -->
+    <header>
         <nav class="main-nav">
             <div class="main-logo">memegen</div>
 
@@ -23,66 +23,86 @@
         </nav>
     </header>
 
+    <!-- Meme Gallery -->
     <section class="meme-gallery gallery page">
+        <!-- Gallery Header (filter, upload image, keywords) -->
         <section class="gallery-header">
+
             <div class="filter-container">
                 <input list="gallery-filter" class="search-input" placeholder="Enter keyword(s)"
                     oninput="onFilter(value)">
+                <img class="input-search-icon" src="img/search.png" alt="magnifying-glass">
                 <button class="btn btn-clear-filter" onclick="onClearFilter()">Clear</button>
             </div>
-            <img class="input-search-icon" src="img/search.png" alt="magnifying-glass">
+
             <button class="btn btn-flexible" onclick="onFlexible()">I'm flexible</button>
-            <input type="file" class="file-input btn" name="image" onchange="onUpload(event)" accept="image/*" />
+
+            <div class="file-upload-container">
+                <label for="file-upload" class="btn">Select Image</label>
+                <input id="file-upload" class="file-input" onchange="onUpload(event)" type="file">
+            </div>
+
             <div class="frequent-keywords">
                 <p>funny</p>
                 <p>israeli</p>
-                <p>girl</p>
+                <p>cute</p>
                 <p>cat</p>
                 <p class="more-keywords">more..</p>
             </div>
+
         </section>
 
+        <!-- The container itself -->
         <section class="images-container">
         </section>
 
+        <!-- Gallery Footer (info about me!) -->
         <section class="gallery-footer">
+            <!-- Profile Pic -->
             <div class="profile-pic-container">
                 <img class="profile-pic" src="img/ProfilePic.png" alt="">
             </div>
+            <!-- Information, summary and social links -->
             <div class="profile-text-container">
                 <h2>Dolev Levy</h2>
-                <h5>An overall successful student in Coding Academy. During the making of this project, he has cried
+                <h4>An overall successful student in Coding Academy. During the making of this project, he has cried
                     only a few times.</h5>
-                <div class="profile-links-container">
-                    <a class="social-link" href="https://www.linkedin.com/in/dolev-levy-658436223/" target="_blank">
-                        <div class="fa-brands fa-linkedin fa-2xl"></div>
-                    </a>
-                    <a class="social-link" href="https://www.facebook.com/Itachi4x4/" target="_blank">
-                        <div class="fa-brands fa-square-facebook fa-2xl"></div>
-                    </a>
-                    <a class="social-link" href="https://github.com/Dolevy97" target="_blank">
-                        <div class="fa-brands fa-square-github fa-2xl"></div>
-                    </a>
-                </div>
+                    <div class="profile-links-container">
+                        <a class="social-link" href="https://www.linkedin.com/in/dolev-levy-658436223/" target="_blank">
+                            <div class="fa-brands fa-linkedin fa-2xl"></div>
+                        </a>
+                        <a class="social-link" href="https://www.facebook.com/Itachi4x4/" target="_blank">
+                            <div class="fa-brands fa-square-facebook fa-2xl"></div>
+                        </a>
+                        <a class="social-link" href="https://github.com/Dolevy97" target="_blank">
+                            <div class="fa-brands fa-square-github fa-2xl"></div>
+                        </a>
+                    </div>
             </div>
 
         </section>
     </section>
 
+    <!-- Saved Memes Container -->
     <section class="saved-memes-container saved page" style="display:none">
 
     </section>
 
+    <!-- Meme Editor -->
     <section class="meme-editor page" style="display:none">
+
         <div class="meme-editor-page-container">
             <div class="canvas-container">
                 <canvas width="250" height="250" tabindex='1'></canvas>
             </div>
+
             <div class="meme-edit-container" style="display:none">
+
                 <div class="text-container">
                     <input class="line-text" type="text" placeholder="Enter your text here"
                         oninput="onUpdateText(this.value)">
                 </div>
+
                 <div class="text-alignment-and-size">
                     <button class="btn btn-font-size" onclick="onChangeFontSize(2)">A+</button>
                     <button class="btn btn-font-size" onclick="onChangeFontSize(-2)">A-</button>
@@ -90,23 +110,27 @@
                     <button class="btn btn-text-align" onclick="onChangeTextAlign('center')">center</button>
                     <button class="btn btn-text-align" onclick="onChangeTextAlign('right')">right</button>
                 </div>
+
                 <div class="color-font">
                     <input type="color" onchange="onChangeColor(value)" value="#ffffff">
                     <select class="font-family-select" onchange="onChangeFontFamily(value)">
                     </select>
                 </div>
+
                 <div class="line-container">
                     <button class="btn add-line" onclick="onAddNewLine()">New Line</button>
                     <button class="btn switch-line" onclick="onSwitchLine()">Switch Line</button>
                     <button class="btn del-line" onclick="onDeleteLine()">Delete Line</button>
                 </div>
+
                 <div class="save-download-container">
                     <a href="" onclick="onDownloadImg(this)" download="my-img.jpg"><button type="button"
                             class="btn btn-download">Download</button></a>
-                    <button class="btn btn-save" onclick="onSaveImg()">Save</button>
+                    <button class="btn btn-save disabled" onclick="onSaveImg()" disabled>Save</button>
                     <button class="btn btn-share" onclick="onShareImgFB()">Share on FB</button>
-                
+
                 </div>
+
                 <div class="stickers-container">
                     <div class="sticker" onclick="onAddSticker(this.innerText)">😈</div>
                     <div class="sticker" onclick="onAddSticker(this.innerText)">😭</div>
@@ -115,29 +139,43 @@
                     <div class="sticker" onclick="onAddSticker(this.innerText)">💣</div>
                     <div class="sticker" onclick="onAddSticker(this.innerText)">😂</div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </section>
 
+    <!-- Datalist for the filter - injected from JS -->
     <datalist class="gallery-filter-datalist" id="gallery-filter">
         <option value=""></option>
     </datalist>
 
+    <!-- About Page -->
+    <section class="about page" style="display:none">
+        <div class="about">
+            <h2>Hello, my name is Dolev Levy</h2>
+            <h3>In 2024 I was presented with the challenge of creating a meme generator.</h3>
+            <h3>This challenge has taken me beyond what I thought I knew about developing a website</h3>
+            <h3>This website was written with HTML5, CSS3 and Vanilla Javascript.</h3>
 
-    <section class="about page" style="display:none;"></section>
+        </div>
+    </section>
 
+    <!-- Footer - visible in every page -->
     <footer>
         <div class="logo">memegen</div>
         <p>Dolev Levy - 2024</p>
     </footer>
 </body>
 
+<!-- Font Awesome for icons -->
+<script src="https://kit.fontawesome.com/137b491d15.js" crossorigin="anonymous"></script>
+
+<!-- Scripts -->
 <script src="js/utils.js"></script>
-<script src="js/storage.service.js"></script>
+<script src="js/service/storage.service.js"></script>
 <script src="js/sharing-on-facebook.js"></script>
-<script src="js/meme-service.js"></script>
-<script src="js/meme-controller.js"></script>
-<script src="js/gallery-controller.js"></script>
+<script src="js/service/meme-service.js"></script>
+<script src="js/controller/meme-controller.js"></script>
+<script src="js/controller/gallery-controller.js"></script>
 
 </html>
