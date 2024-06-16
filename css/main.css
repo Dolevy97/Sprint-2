@@ -61,8 +61,12 @@ body {
     transition: font-size .3s;
 }
 
-.nav-link:hover {
+.nav-link:hover:not(.disabled) {
     font-size: 1.1em
+}
+
+.nav-link.disabled {
+    cursor: default;
 }
 
 /* MEME GALLERY */
@@ -82,7 +86,7 @@ body {
 }
 
 .gallery-header-secondary {
-    display:none;
+    display: none;
     height: 4vh;
 }
 
@@ -293,13 +297,18 @@ body {
 
 .meme-editor {
     position: relative;
+
+    width: 80vw;
     height: 80.5vh;
+
+    margin: auto;
 }
+
 
 .canvas-container {
     position: absolute;
     top: 50%;
-    left: 30%;
+    left: 20%;
     translate: -20% -50%;
 
     display: flex;
@@ -329,8 +338,8 @@ canvas:focus {
 
     min-height: 30vh;
 
-    min-width: 30vw;
-    max-width: 50vw;
+    min-width: 300px;
+    width: 20vw;
 
     background-color: var(--secondary-header-color);
 
