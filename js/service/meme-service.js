@@ -1,10 +1,14 @@
 'use strict'
 
 var gNextId = 1
-var gImgs
-createImgs()
 
-var savedImgs
+var gImgs
+var gKeywordSearchCountMap
+_createImgs()
+_createKeywordMap()
+
+// For the saved images - currently unavailable
+// var savedImgs
 
 var gMeme = {
     isDragged: false,
@@ -32,8 +36,6 @@ var gMeme = {
         }
     ]
 }
-var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
-
 
 function getImgs(filter = '') {
     var imgs = gImgs
@@ -45,13 +47,17 @@ function getImgs(filter = '') {
     return imgs
 }
 
-
 function getMeme() {
     return gMeme
 }
 
-function getSavedImgs() {
-    return savedImgs
+// For the saved images - currently unavailable
+// function getSavedImgs() {
+//     return savedImgs
+// }
+
+function getSearchCountMap() {
+    return gKeywordSearchCountMap
 }
 
 function _filterImgs(filter) {
@@ -62,14 +68,16 @@ function _filterImgs(filter) {
 
 // Saved Images
 
-function saveImg(imgWithTextUrl, id, lines, cleanImgUrl, font) {
-    if (!savedImgs) {
-        savedImgs = [{ id, url: imgWithTextUrl, lines, cleanImgUrl, font }]
-    }
-    else savedImgs.push({ id, url: imgWithTextUrl, lines, cleanImgUrl, font })
-}
+// For the saved images - currently unavailable
+// function saveImg(imgWithTextUrl, id, lines, cleanImgUrl, font) {
+//     if (!savedImgs) {
+//         savedImgs = [{ id, url: imgWithTextUrl, lines, cleanImgUrl, font }]
+//     }
+//     else savedImgs.push({ id, url: imgWithTextUrl, lines, cleanImgUrl, font })
+// }
 
 function updateToDefault() {
+    if (gMeme.lines.length > 2) gMeme.lines.splice(2, gMeme.lines.length)
     const lines = gMeme.lines
     lines.forEach(line => {
         line.txt = 'Sample Text'
@@ -88,8 +96,10 @@ function changeSelectedMeme(id) {
     gMeme.selectedImgId = id
 }
 
-function setLineTxt(txt) {
+function setLineTxt(txt, rand = false) {
+    if (gMeme.selectedLineIdx === -1) return
     gMeme.lines[gMeme.selectedLineIdx].txt = txt
+    if (rand) gMeme.lines.splice(1, gMeme.lines.length)
 }
 
 function updateFont(value) {
@@ -118,7 +128,6 @@ function addNewLine(txt = 'Sample Text') {
     }
     gMeme.lines.push(newLine)
     if (gMeme.lines.length === 1) gMeme.selectedLineIdx = 0
-
 }
 
 function switchLine(idx) {
@@ -155,43 +164,57 @@ function addImg(imgUrl, keywords) {
     _saveImgs()
 }
 
-// Drag
+function increaseSize(value) {
+    gKeywordSearchCountMap[value]++
+    _saveKeywords()
+}
+
+
+// MOVE
 
 function moveText(dx, dy) {
     gMeme.lines[gMeme.selectedLineIdx].x += dx
     gMeme.lines[gMeme.selectedLineIdx].y += dy
 }
 
-
 // FACTORY
 
-function createImgs() {
+function _createImgs() {
     gImgs = loadFromStorage('imgs')
     if (gImgs && gImgs.length !== 0) return
     gImgs = [
-        createImg(['trump', 'funny']),
-        createImg(['cute', 'puppies']),
-        createImg(['cute', 'puppy', 'baby']),
-        createImg(['cute', 'tired', 'cat']),
-        createImg(['success', 'baby']),
-        createImg(['aliens', 'guy']),
-        createImg(['baby', 'black']),
-        createImg(['condescending', 'wonka']),
-        createImg(['baby']),
-        createImg(['laughing', 'obama']),
-        createImg(['kissing', 'men']),
-        createImg(['haim hecht', 'what would you do', 'חיים הכט', 'מה אתם הייתם עושים']),
-        createImg(['leonardo dicaprio', 'great gatsby', 'toast']),
-        createImg(['matrix', 'morpheus']),
-        createImg(['one does not simply', 'sean bean']),
-        createImg(['star trek', 'picard', 'laughing']),
-        createImg(['putin']),
-        createImg(['buzz lightyear'])
+        _createImg(['trump', 'funny']),
+        _createImg(['cute', 'puppies']),
+        _createImg(['cute', 'puppy', 'baby']),
+        _createImg(['cute', 'tired', 'cat']),
+        _createImg(['success', 'baby']),
+        _createImg(['aliens', 'guy']),
+        _createImg(['baby', 'black']),
+        _createImg(['condescending', 'wonka']),
+        _createImg(['baby']),
+        _createImg(['laughing', 'obama']),
+        _createImg(['kissing', 'men']),
+        _createImg(['haim hecht', 'what would you do', 'חיים הכט', 'מה אתם הייתם עושים']),
+        _createImg(['leonardo dicaprio', 'great gatsby', 'toast']),
+        _createImg(['matrix', 'morpheus']),
+        _createImg(['one does not simply', 'sean bean']),
+        _createImg(['star trek', 'picard', 'laughing']),
+        _createImg(['putin']),
+        _createImg(['buzz lightyear'])
     ]
     _saveImgs()
 }
 
-function createImg(keywords = ['funny', 'cat']) {
+
+function _createKeywordMap() {
+    gKeywordSearchCountMap = loadFromStorage('keywordCountMap')
+    if (gKeywordSearchCountMap && gKeywordSearchCountMap.length !== 0) return
+    gKeywordSearchCountMap = { 'funny': 8, 'cat': 8, 'baby': 8, 'cute': 8 }
+    _saveKeywords()
+}
+
+
+function _createImg(keywords = ['funny', 'cat']) {
     return {
         id: gNextId++,
         url: `meme-imgs/meme-imgs (square)/${gNextId - 1}.jpg`,
@@ -203,3 +226,6 @@ function _saveImgs() {
     saveToStorage('imgs', gImgs)
 }
 
+function _saveKeywords() {
+    saveToStorage('keywordCountMap', gKeywordSearchCountMap)
+}

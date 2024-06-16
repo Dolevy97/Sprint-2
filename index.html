@@ -43,21 +43,12 @@
             </div>
 
             <div class="frequent-keywords desktop">
-                <p>funny</p>
-                <p>israeli</p>
-                <p>cute</p>
-                <p>cat</p>
-                <p class="more-keywords">more..</p>
             </div>
 
         </section>
         <section class="gallery-header-secondary">
             <div class="frequent-keywords mobile">
-                <p>funny</p>
-                <p>israeli</p>
-                <p>cute</p>
-                <p>cat</p>
-                <p class="more-keywords">more..</p>
+
             </div>
         </section>
         <!-- The container itself -->
@@ -112,40 +103,45 @@
                 </div>
 
                 <div class="text-alignment-and-size">
-                    <button class="btn btn-font-size" onclick="onChangeFontSize(2)">A+</button>
-                    <button class="btn btn-font-size" onclick="onChangeFontSize(-2)">A-</button>
-                    <button class="btn btn-text-align" onclick="onChangeTextAlign('left')">left</button>
-                    <button class="btn btn-text-align" onclick="onChangeTextAlign('center')">center</button>
-                    <button class="btn btn-text-align" onclick="onChangeTextAlign('right')">right</button>
+                    <button class="btn btn-font-size" onclick="onChangeFontSize(2)"><span class="fa-solid">A
+                            +</span></button>
+                    <button class="btn btn-font-size" onclick="onChangeFontSize(-2)"><span class="fa-solid">A
+                            -</span></button>
+                    <button class="btn btn-text-align" onclick="onChangeTextAlign('left')"><span
+                            class="fa-solid fa-align-left"></span></button>
+                    <button class="btn btn-text-align" onclick="onChangeTextAlign('center')"><span
+                            class="fa-solid fa-align-center"></span></button>
+                    <button class="btn btn-text-align" onclick="onChangeTextAlign('right')"><span
+                            class="fa-solid fa-align-right"></span></button>
                 </div>
 
                 <div class="color-font">
-                    <input type="color" onchange="onChangeColor(value)" value="#ffffff">
                     <select class="font-family-select" onchange="onChangeFontFamily(value)">
                     </select>
-                </div>
+                    <input class="input-color" type="color" onchange="onChangeColor(value)" value="#ffffff">
 
-                <div class="line-container">
-                    <button class="btn add-line" onclick="onAddNewLine()">New Line</button>
-                    <button class="btn switch-line" onclick="onSwitchLine()">Switch Line</button>
-                    <button class="btn del-line" onclick="onDeleteLine()">Delete Line</button>
+                    <button class="btn add-line" onclick="onAddNewLine()">
+                        <span class="fa-solid fa-plus"></span>
+                    </button>
+                    <button class="btn switch-line" onclick="onSwitchLine()"><span
+                            class="fa-solid fa-arrows-up-down"></span></button>
+                    <button class="btn del-line" onclick="onDeleteLine()"><span
+                            class="fa-solid fa-trash"></span></button>
                 </div>
 
                 <div class="save-download-container">
                     <a href="" onclick="onDownloadImg(this)" download="my-img.jpg"><button type="button"
-                            class="btn btn-download">Download</button></a>
-                    <button class="btn btn-save disabled" onclick="onSaveImg()" disabled>Save</button>
-                    <button class="btn btn-share" onclick="onShareImgFB()">Share on FB</button>
+                            class="btn btn-download"><span class="fa-solid fa-download"></span></button></a>
+                    <button class="btn btn-save disabled" onclick="onSaveImg()" disabled><span
+                            class="fa-solid fa-bookmark"></span></button>
+                    <button class="btn btn-share" onclick="onShareImgFB()"><span
+                            class="fa-brands fa-facebook-f"></span></button>
+                    <button class="btn btn-share" onclick="onShare()"><span
+                            class="fa-solid fa-share"></span></button>
 
                 </div>
 
                 <div class="stickers-container">
-                    <div class="sticker" onclick="onAddSticker(this.innerText)">😈</div>
-                    <div class="sticker" onclick="onAddSticker(this.innerText)">😭</div>
-                    <div class="sticker" onclick="onAddSticker(this.innerText)">💡</div>
-                    <div class="sticker" onclick="onAddSticker(this.innerText)">🪦</div>
-                    <div class="sticker" onclick="onAddSticker(this.innerText)">💣</div>
-                    <div class="sticker" onclick="onAddSticker(this.innerText)">😂</div>
                 </div>
 
             </div>

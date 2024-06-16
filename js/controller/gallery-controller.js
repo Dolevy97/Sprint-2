@@ -3,11 +3,16 @@
 var gFilter
 
 function onInit() {
+    renderApp()
+}
+
+function renderApp() {
     renderGallery()
-    renderSavedImgs()
+    // renderSavedImgs()
     renderGalleryFilterDatalist()
     renderFonts()
     renderStickers()
+    renderKeywords()
 }
 
 function renderGallery() {
@@ -20,16 +25,17 @@ function renderGallery() {
     addImageEventListeners(imgs)
 }
 
-function renderSavedImgs() {
-    var imgs = getSavedImgs()
-    if (!imgs) return
-    var strHTML = imgs.map(img =>
-        `<img class='saved-img meme-img' src='${img.url}'></img>`
-    )
-    const elSavedGallery = document.querySelector('.saved-memes-container')
-    elSavedGallery.innerHTML = strHTML.join('')
-    addImageEventListeners(imgs, true)
-}
+// Belongs to saved imgs - unavailable :(
+// function renderSavedImgs() {
+//     var imgs = getSavedImgs()
+//     if (!imgs) return
+//     var strHTML = imgs.map(img =>
+//         `<img class='saved-img meme-img' src='${img.url}'></img>`
+//     )
+//     const elSavedGallery = document.querySelector('.saved-memes-container')
+//     elSavedGallery.innerHTML = strHTML.join('')
+//     addImageEventListeners(imgs, true)
+// }
 
 function renderGalleryFilterDatalist() {
     var imgs = getImgs()
@@ -39,6 +45,21 @@ function renderGalleryFilterDatalist() {
         `<option value="${keyword}"></option>`
     )
     document.querySelector('.gallery-filter-datalist').innerHTML = strHTML.join('')
+}
+
+function renderKeywords() {
+    const searchCountMap = getSearchCountMap()
+    const keywords = Object.keys(searchCountMap)
+    const fontSizes = Object.values(searchCountMap)
+    var strHTML = keywords.map((keyword, idx) =>
+        `<p class="keyword" style="font-size:${fontSizes[idx]}px;" onclick="onFilterByKeyword(this.innerText)">${keyword}</p>`
+    )
+    var elKeywordContainers = document.querySelectorAll('.frequent-keywords')
+    elKeywordContainers.forEach(container =>
+        container.innerHTML = strHTML.join('')
+    )
+
+
 }
 
 function addImageEventListeners(imgs, saved = false) {
@@ -86,7 +107,7 @@ function onFlexible() {
     const randImg = getRandomInt(0, imgs.length)
     const lines = ['Today will be a short day', 'No exercise tomorrow', 'This is exciting']
     const line = lines[getRandomInt(0, lines.length)]
-    setLineTxt(line)
+    setLineTxt(line, true)
     renderPage('meme-editor')
     changeSelectedMeme(imgs[randImg].id)
     renderCanvas(imgs[randImg].url, true, false)
@@ -111,6 +132,14 @@ function renderPage(elPage) {
 function onFilter(value) {
     gFilter = value
     getImgs(value)
+    renderGallery()
+}
+
+function onFilterByKeyword(value) {
+    gFilter = value
+    increaseSize(value)
+    getImgs(value)
+    renderKeywords()
     renderGallery()
 }
 
