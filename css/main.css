@@ -137,7 +137,7 @@ body {
     justify-content: center;
     align-items: center;
 
-    width: 130px;
+    width: 150px;
     height: 10px;
 }
 
@@ -168,9 +168,8 @@ body {
     overflow-x: hidden;
 
 
-    margin-inline: 10px;
-
-    margin-block: 10px;
+    margin: 0.625em;
+    padding-block:1em;
 
 }
 
@@ -192,16 +191,17 @@ body {
 
 .meme-img {
     object-fit: cover;
-    height: 120px;
+    height: 200px;
 
     border-radius: 10px;
 
-    transition: .2s;
+    transition: .3s;
 
 }
 
 .meme-img:hover {
-    scale: 1.1;
+    scale: 1.05;
+    box-shadow: 1px 1px 1px 4000px rgb(0 0 0 / 0.4), 1px 1px 10px 4px rgb(255 255 255 / .3);
     cursor: pointer;
 }
 
