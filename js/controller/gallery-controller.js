@@ -32,7 +32,8 @@ function renderSavedImgs() {
 
 function renderGalleryFilterDatalist() {
     var imgs = getImgs()
-    const uniqueKeywords = [...new Set(imgs.flatMap(img => img.keywords))];
+    var uniqueKeywords = [...new Set(imgs.flatMap(img => img.keywords))];
+    if (uniqueKeywords.length > 11) uniqueKeywords.splice(10, uniqueKeywords.length)
     var strHTML = uniqueKeywords.map(keyword =>
         `<option value="${keyword}"></option>`
     )
