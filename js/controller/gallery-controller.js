@@ -51,7 +51,6 @@ function addImageEventListeners(imgs, saved = false) {
     })
 }
 
-
 function onUpload(ev) {
     loadImageFromInput(ev, uploadImg)
 }
@@ -79,8 +78,6 @@ function uploadImg(elImg) {
     document.querySelector('.file-input').value = ''
     renderGallery()
 }
-
-
 
 function onFlexible() {
     const imgs = getImgs()

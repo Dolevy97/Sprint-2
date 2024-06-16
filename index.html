@@ -42,7 +42,7 @@
                 <input id="file-upload" class="file-input" onchange="onUpload(event)" type="file">
             </div>
 
-            <div class="frequent-keywords">
+            <div class="frequent-keywords desktop">
                 <p>funny</p>
                 <p>israeli</p>
                 <p>cute</p>
@@ -51,7 +51,15 @@
             </div>
 
         </section>
-
+        <section class="gallery-header-secondary">
+            <div class="frequent-keywords mobile">
+                <p>funny</p>
+                <p>israeli</p>
+                <p>cute</p>
+                <p>cat</p>
+                <p class="more-keywords">more..</p>
+            </div>
+        </section>
         <!-- The container itself -->
         <section class="images-container">
         </section>
@@ -145,9 +153,11 @@
     </section>
 
     <!-- Datalist for the filter - injected from JS -->
-    <datalist class="gallery-filter-datalist" id="gallery-filter">
-        <option value=""></option>
-    </datalist>
+    <div class="datalist-container">
+        <datalist class="gallery-filter-datalist" id="gallery-filter">
+            <option value=""></option>
+        </datalist>
+    </div>
 
     <!-- About Page -->
     <section class="about page" style="display:none">
@@ -156,7 +166,6 @@
             <h3>In 2024 I was presented with the challenge of creating a meme generator.</h3>
             <h3>This challenge has taken me beyond what I thought I knew about developing a website</h3>
             <h3>This website was written with HTML5, CSS3 and Vanilla Javascript.</h3>
-
         </div>
     </section>
 

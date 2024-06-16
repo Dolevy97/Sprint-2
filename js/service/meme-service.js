@@ -82,13 +82,6 @@ function updateToDefault() {
         line.width = 0
     })
 }
-
-function updateLines(lines) {
-    gMeme.lines = lines
-    console.log(lines)
-}
-
-
 // Functions from edit controller
 
 function changeSelectedMeme(id) {
