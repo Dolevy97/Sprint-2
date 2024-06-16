@@ -13,7 +13,6 @@ document.querySelector('.btn-share').addEventListener('click', async () => {
                     text: `This was made using Dolev's Meme Generator!`,
                     files: [file]
                 });
-                console.log('Content shared successfully');
             } catch (error) {
                 console.error('Error sharing content:', error);
             }
