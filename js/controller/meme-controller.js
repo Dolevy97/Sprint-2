@@ -356,6 +356,7 @@ function onDownloadImg(elLink) {
     const imgContent = gElCanvas.toDataURL('image/jpeg')
     elLink.href = imgContent
     drawFrame()
+    flashMsg()
 }
 
 function onSaveImg() {
@@ -367,6 +368,7 @@ function onSaveImg() {
     saveImg(imgWithText, gLocalMeme.selectedImgId, linesCopy, cleanImg, gCurrentFont)
     renderImgWithText()
     renderSavedImgs()
+    flashMsg()
 }
 
 // GetEvPos + Add Listeners
@@ -404,4 +406,14 @@ function addTouchListeners() {
     gElCanvas.addEventListener('touchstart', onDown)
     gElCanvas.addEventListener('touchmove', onMove)
     gElCanvas.addEventListener('touchend', onUp)
+}
+
+
+// MISC
+
+function flashMsg() {
+    document.querySelector('.success-msg').classList.add('msg-appear')
+    setTimeout(() => {
+        document.querySelector('.success-msg').classList.remove('msg-appear')
+    }, 1500)
 }

@@ -10,6 +10,10 @@
 
 <body class="main-layout" onload="onInit()">
 
+    <div class="success-msg">
+        <h3 class="success-msg-txt">Success!</h3>
+    </div>
+
     <!-- Header / Nav-Bar -->
     <header>
         <nav class="main-nav">
@@ -134,9 +138,9 @@
                             class="btn btn-download"><span class="fa-solid fa-download"></span></button></a>
                     <button class="btn btn-save disabled" onclick="onSaveImg()" disabled><span
                             class="fa-solid fa-bookmark"></span></button>
-                    <button class="btn btn-share" onclick="onShareImgFB()"><span
+                    <button class="btn btn-share-fb" onclick="onShareImgFB()"><span
                             class="fa-brands fa-facebook-f"></span></button>
-                    <button class="btn btn-share" onclick="onShare()"><span
+                    <button class="btn btn-share"><span
                             class="fa-solid fa-share"></span></button>
 
                 </div>
@@ -179,6 +183,7 @@
 <script src="js/utils.js"></script>
 <script src="js/service/storage.service.js"></script>
 <script src="js/sharing-on-facebook.js"></script>
+<script src="js/web-share.js"></script>
 <script src="js/service/meme-service.js"></script>
 <script src="js/controller/meme-controller.js"></script>
 <script src="js/controller/gallery-controller.js"></script>

@@ -175,8 +175,9 @@ body {
 
 
     margin: 0.625em;
-    padding-block:1em;
+    padding-block: 1em;
 
+    border-radius: 20px;
 }
 
 ::-webkit-scrollbar {
@@ -372,7 +373,7 @@ canvas:focus {
 }
 
 .font-family-select {
-    width:100px;
+    width: 100px;
 }
 
 input[type='color'] {
@@ -398,8 +399,8 @@ input[type='color'] {
     border-radius: 10px;
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
-    
-    overflow-x:scroll;
+
+    overflow-x: scroll;
 }
 
 .sticker {
@@ -474,4 +475,32 @@ footer p {
 .btn:hover:not(.disabled) {
     background-color: rgb(255 255 255 / .6);
     cursor: pointer;
+}
+
+.success-msg {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    translate: -50% 0;
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100px;
+    height: 50px;
+
+    z-index: 10;
+
+    border-radius: 10px;
+
+
+    background-color: var(--header-color);
+    transition: top .5s, box-shadow .2s;
+}
+
+.success-msg.msg-appear {
+    top: 5px;
+    box-shadow: 1px 1px 1px 4000px rgb(0 0 0 / 0.4), 1px 1px 10px 4px rgb(255 255 255 / .1);
 }
