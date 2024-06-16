@@ -8,6 +8,11 @@
         padding: 1.5em;
     }
 
+    .meme-editor {
+
+        width: 100vw;
+    }
+
     .search-input {
         position: relative;
 
@@ -53,7 +58,7 @@
         position: absolute;
         top: 80%;
         left: 50%;
-        translate: -50% -50%;
+        translate: -75% -50%;
 
 
         min-height: 25vh;

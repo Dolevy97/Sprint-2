@@ -82,9 +82,12 @@ function uploadImg(elImg) {
 function onFlexible() {
     const imgs = getImgs()
     const randImg = getRandomInt(0, imgs.length)
+    const lines = ['Today will be a short day', 'No exercise tomorrow', 'This is exciting']
+    const line = lines[getRandomInt(0, lines.length)]
+    setLineTxt(line)
     renderPage('meme-editor')
     changeSelectedMeme(imgs[randImg].id)
-    renderCanvas(imgs[randImg].url, true)
+    renderCanvas(imgs[randImg].url, true, false)
 }
 
 function renderPage(elPage) {

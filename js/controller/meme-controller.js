@@ -82,7 +82,7 @@ function renderCanvas(imgUrl, rand = false, fromSaved = false, lines = []) {
             renderImgWithText(false, true, lines)
             document.querySelector('.btn-save').disabled = true
         } else {
-            rand ? renderImgWithText(true) : renderImgWithText();
+            rand ? renderImgWithText(true, false, lines) : renderImgWithText();
             document.querySelector('.btn-save').disabled = false
         }
 
@@ -122,16 +122,16 @@ function renderImgWithText(rand = false, fromSaved = false, lines = []) {
     drawFrame()
 }
 
-// Only called when loading a saved img
+// Only called when loading a saved img - saved inactive
 
-function renderSavedLines(lines) {
-    lines.forEach(line => {
-        gCtx.font = `${line.size}px ${line.font}`;
-        gCtx.fillStyle = line.color;
-        gCtx.fillText(line.txt, line.x, line.y);
-        gCtx.strokeText(line.txt, line.x, line.y);
-    });
-}
+// function renderSavedLines(lines) {
+//     lines.forEach(line => {
+//         gCtx.font = `${line.size}px ${line.font}`;
+//         gCtx.fillStyle = line.color;
+//         gCtx.fillText(line.txt, line.x, line.y);
+//         gCtx.strokeText(line.txt, line.x, line.y);
+//     });
+// }
 
 function drawLines(rand = false) {
     const lines = gLocalMeme.lines
@@ -215,7 +215,7 @@ function onUpdatePositionAndSize(idx) {
     var y
     if (!currLine.y) {
         if (gLocalMeme.lines.length > 2) {
-            y = 50 + (idx * (gElCanvas.height - 450))
+            y = 50 + (idx * (gElCanvas.height - 400))
         } else {
             y = 50 + (idx * (gElCanvas.height - 100))
         }
