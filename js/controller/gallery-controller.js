@@ -7,6 +7,7 @@ function onInit() {
     renderSavedImgs()
     renderGalleryFilterDatalist()
     renderFonts()
+    renderStickers()
 }
 
 function renderGallery() {

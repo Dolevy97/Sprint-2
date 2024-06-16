@@ -381,7 +381,11 @@ input[type='color'] {
     width: 260px;
 
     padding-inline: 10px;
-    border-radius: 30px;
+    border-radius: 10px;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    
+    overflow-x: auto;
 }
 
 .sticker {
